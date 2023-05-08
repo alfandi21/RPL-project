@@ -1,4 +1,6 @@
 <?php
+    // CODE BY JOSUA PINEM
+
     include 'config.php';
     session_start();
     $user = $_POST['Username'];
