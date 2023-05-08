@@ -12,7 +12,7 @@
     include '../PHP/config.php';
     session_start();
     if(isset($_SESSION['posisi']) == true){
-      header("Location: dashboard.php");
+      header("Location: main.php");
     }
   ?>
   <!-- END OF HEADER PHP CODE --> 
