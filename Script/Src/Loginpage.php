@@ -1,10 +1,21 @@
 <!DOCTYPE html>
+    <!-- CODE HTML CREATE BY FAWWAZ IKBAR AND PHP BY JOSUA PINEM -->
 <html lang="en" >
 <head>
   <meta charset="UTF-8">
   <title>UNIMED | LOGIN FORM</title>
   <link rel="shortcut icon" href="../../Source/icon/logounimed.png" type="image/x-icon" />
   <link rel="stylesheet" href="../CSS/login.css">
+
+  <!-- HEADER PHP CODE -->
+  <?php 
+    include '../PHP/config.php';
+    session_start();
+    if(isset($_SESSION['posisi']) == true){
+      header("Location: dashboard.php");
+    }
+  ?>
+  <!-- END OF HEADER PHP CODE --> 
 </head>
 
 <body>
@@ -49,11 +60,11 @@
       <div class="form-item log-in">
         <div class="table">
           <div class="table-cell">
-                <form action="">
+                <form action="../PHP/login.php" method="POST">
             <input type="text"  name="Username" placeholder="Username"required  />
             <input type="Password"  name="Password" placeholder="Password"required  />
             <div class="btnn">
-              <a href="coba.html"><input type="submit" value="Login"></a>
+              <a href="coba.html"><input type="submit" value="Login" name="username"></a>
             </div>
                 </form>
             <div class="forget"><a href="#">Forgot Password</a></div>
