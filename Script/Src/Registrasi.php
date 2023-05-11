@@ -1,5 +1,9 @@
 <?php
+      // CODE BY FAWWAZ IKBAR AND ALFANDI MUALO 
+
     include '../PHP/config.php'; 
+    session_start();
+    $NIP = $_SESSION["NIP"];
     if (isset($_POST["submit"])){
         $Nama = $_POST["Nama"];
         $Gender = $_POST["Gender"];
@@ -10,11 +14,19 @@
         $NO_HP = $_POST["NO_HP"];
         $alamat_kantor = $_POST["alamat_kantor"];
         $no_telp_kantor = $_POST["no_telp_kantor"];
+        $pendidikans1 = $_POST["pendidikans1"];
+        $pendidikans2 = $_POST["pendidikans2"];
+        $pendidikans3 = $_POST["pendidikans3"];
 
-        $query = "INSERT INTO tb_registrasi
-        VALUES ('','$Nama','$Gender','$NIDN','$Jabatan','$tgl_lahir','$Email','$NO_HP','$alamat_kantor','$no_telp_kantor')";
+        $query = "INSERT INTO tb_dosen
+        VALUES ('','$Nama','$Gender','$NIP','$NIDN','$Jabatan','$tgl_lahir','$Email','$NO_HP','$alamat_kantor','$no_telp_kantor', '$pendidikans1', '$pendidikans2', '$pendidikans3')";
         mysqli_query($conf, $query);
+        if(mysqli_affected_rows($conf) > 0){
+            echo "<script>alert('Registration Success!')</script>";
+            echo "<meta http-equiv='refresh' content='1 url=../Src/Loginpage.php'>";
+            $_SESSION['posisi'] = false;
   }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -39,7 +51,7 @@
       <div class="konten">
         <form action="" method="post">
           <!-- nama -->
-          <input type="text" name="Nama" placeholder="Nama" required />
+          <input type="text" name="Nama" placeholder="Isak Nabati, S.Kom, M.Kom" required />
           <!-- gender -->
           <div class="gender">
             <p>Gender</p>
@@ -83,6 +95,12 @@
             placeholder="No Telepon Kantor"
             required
           />
+          <!-- Pendidikan S1 -->
+          <input type="text" name="pendidikans1" placeholder="S1-Ilmu Komputer / none" required />
+          <!-- Pendidikan S2 -->
+          <input type="text" name="pendidikans2" placeholder="S2-Ilmu Komputer / none" required />
+          <!-- Pendidikan S3 -->
+          <input type="text" name="pendidikans3" placeholder="S3-Ilmu Komputer / none" required />
           <!-- button save -->
           <div class="btnn">
             <input type="submit" name="submit" value="Save">

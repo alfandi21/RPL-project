@@ -76,8 +76,8 @@
       <div class="form-item sign-up">
         <div class="table">
           <div class="table-cell">
-               <form action="">
-            <input  type="text"  name="NIP" placeholder="NIDN" required />
+               <form action="../PHP/regist.php" method="post">
+            <input  type="text"  name="NIP" placeholder="NIP" required />
             <input type="Password"  name="Password" placeholder="Password"required  />
             <div class="btnn">
              <a href="coba.html"><input type="submit" value="Sign up"></a>
