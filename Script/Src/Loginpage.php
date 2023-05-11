@@ -20,7 +20,7 @@
 
 <body>
  <div class="header">
-        <img src="../../Source/icon/logounimed.png" alt="logounimed" />
+        <img src="../../Asset/icon/logounimed.png" alt="logounimed" />
         <div class="judul">
           <h1>TRI DHARMA DOSEN</h1>
   </div>
