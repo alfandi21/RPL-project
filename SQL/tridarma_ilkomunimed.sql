@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 08, 2023 at 06:23 AM
+-- Generation Time: May 11, 2023 at 04:29 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -67,7 +67,38 @@ CREATE TABLE `loginform` (
 --
 
 INSERT INTO `loginform` (`id`, `username`, `password`) VALUES
-(1, '12345678910', '12345');
+(1, '12345678910', '12345'),
+(2, '22211122', 'psika21');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tb_dosen`
+--
+
+CREATE TABLE `tb_dosen` (
+  `id` int(11) NOT NULL,
+  `nama` varchar(50) NOT NULL,
+  `gender` varchar(20) NOT NULL,
+  `nip` varchar(25) NOT NULL,
+  `nidn` varchar(25) NOT NULL,
+  `jabatan` varchar(50) NOT NULL,
+  `birthdate` date NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `no_hp` varchar(15) NOT NULL,
+  `alamat` text NOT NULL,
+  `no_tlp_kantor` varchar(15) NOT NULL,
+  `pendidikanS1` varchar(50) NOT NULL,
+  `pendidikanS2` varchar(50) NOT NULL,
+  `pendidikanS3` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tb_dosen`
+--
+
+INSERT INTO `tb_dosen` (`id`, `nama`, `gender`, `nip`, `nidn`, `jabatan`, `birthdate`, `email`, `no_hp`, `alamat`, `no_tlp_kantor`, `pendidikanS1`, `pendidikanS2`, `pendidikanS3`) VALUES
+(1, 'PSIKA21, S.Kom, M.Kom', 'Laki-Laki', '22211122', '3332112', 'Kaprodi', '2023-01-29', 'psika21@gmail.com', '0812-3221-1122', 'UNIMED', '66 543221', 'S1 Ilmu Komputer - UNIMED', 'S2 Teknik Informatika - UGM', 'none');
 
 --
 -- Indexes for dumped tables
@@ -92,6 +123,12 @@ ALTER TABLE `loginform`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `tb_dosen`
+--
+ALTER TABLE `tb_dosen`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -99,6 +136,12 @@ ALTER TABLE `loginform`
 -- AUTO_INCREMENT for table `loginform`
 --
 ALTER TABLE `loginform`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `tb_dosen`
+--
+ALTER TABLE `tb_dosen`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --

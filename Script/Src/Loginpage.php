@@ -20,7 +20,7 @@
 
 <body>
  <div class="header">
-        <img src="../../Source/icon/logounimed.png" alt="logounimed" />
+        <img src="../../Asset/icon/logounimed.png" alt="logounimed" />
         <div class="judul">
           <h1>TRI DHARMA DOSEN</h1>
   </div>
@@ -76,8 +76,8 @@
       <div class="form-item sign-up">
         <div class="table">
           <div class="table-cell">
-               <form action="">
-            <input  type="text"  name="NIP" placeholder="NIDN" required />
+               <form action="../PHP/regist.php" method="post">
+            <input  type="text"  name="NIP" placeholder="NIP" required />
             <input type="Password"  name="Password" placeholder="Password"required  />
             <div class="btnn">
              <a href="coba.html"><input type="submit" value="Sign up"></a>
