@@ -1,0 +1,175 @@
+/** @format */
+
+/* ===== VARIABLES =====  */
+:root {
+	/* ===== COLORS =====  */
+	--body-color: #f6f5ff;
+	--primary-color: #fff;
+	--secondary-color: #08af5f;
+	--text-color: #2a2a2a;
+	/* ====== TRANSITIONS ======  */
+	--tran-all: all 0.5s ease;
+}
+
+/* ===== BODY PAGE =====  */
+body {
+	background-color: var(--body-color);
+	min-height: 100vh;
+	transition: var(--tran-all);
+}
+
+/* ===== SIDEBAR =====  */
+.sidebar {
+	background-color: var(--secondary-color);
+	min-height: 100vh;
+	width: 74px;
+	z-index: 1;
+	transition: var(--tran-all);
+}
+.sidebar a {
+	align-items: center;
+}
+.sidebar-text,
+.sidebar-header {
+	display: none;
+}
+.sidebar-text,
+.sidebar-header {
+	white-space: nowrap;
+	animation: fadeIn 1s;
+}
+/* Text Transition */
+@keyframes fadeIn {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+li > a {
+	color: var(--primary-color);
+}
+li > a:hover {
+	color: var(--text-color);
+}
+.menu-active > a,
+.menu-active > a:hover {
+	background-color: var(--primary-color);
+	color: var(--secondary-color);
+}
+
+/* Sidebar Open */
+.sidebar.maximize {
+	width: 280px;
+	z-index: 1;
+}
+.sidebar.maximize .sidebar-text,
+.sidebar.maximize .sidebar-header {
+	display: flex;
+}
+
+/* Logout Modal */
+.modal,
+.modal-backdrop,
+.sidebar.maximize .modal-backdrop,
+.sidebar.maximize .modal {
+	z-index: 9999;
+}
+
+/* ===== MAIN SECTION =====  */
+main {
+	min-height: 100vh;
+	width: calc(100% - 74px);
+	transition: var(--tran-all);
+}
+.topbar {
+	background-color: var(--secondary-color);
+	max-height: 80px;
+	width: 100%;
+}
+#maximize,
+#minimize {
+	animation: fadeIn 0.3s;
+}
+.profile-image {
+	object-fit: cover;
+	height: 48px;
+	width: 48px;
+}
+
+/* Sidebar Open */
+.sidebar.maximize main {
+	width: calc(100% - 280px);
+}
+
+/* ===== CONTENT =====  */
+.content {
+	width: 100%;
+	height: 100%;
+	transition: var(--tran-all);
+}
+
+/* ===== DASHBOARD =====  */
+.user-image {
+	height: 160px;
+	width: 160px;
+	object-fit: cover;
+}
+
+/* ===== PROFILE =====  */
+.profile-image-edit {
+	height: 160px;
+	width: 160px;
+	object-fit: cover;
+}
+
+/* ===== LECTURER'S DATA =====  */
+.pagination > li > a,
+.pagination > li > a:hover,
+.pagination > li > a:focus {
+	color: var(--secondary-color);
+}
+.pagination > li > a:hover {
+	background-color: #dee2e6;
+}
+.page-item.active a.page-link,
+.page-item.active {
+	background-color: var(--secondary-color);
+	border-color: var(--secondary-color);
+	color: var(--primary-color);
+}
+
+/* ===== MEDIA QUERIES =====  */
+@media (max-width: 768px) {
+	.sidebar {
+		position: fixed;
+		left: -74px;
+		top: 52px;
+		max-width: 220px;
+	}
+	main {
+		width: 100%;
+	}
+	.topbar {
+		max-height: 60px;
+		position: fixed;
+		z-index: 3;
+	}
+	.profile-image {
+		height: 40px;
+		width: 40px;
+	}
+	.content {
+		position: relative;
+		top: 60px;
+	}
+
+	/* Sidebar Open */
+	.sidebar.maximize {
+		left: 0;
+	}
+	.sidebar.maximize + main > .content {
+		filter: blur(4px);
+	}
+}
