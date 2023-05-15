@@ -14,4 +14,4 @@ if (hour >= 18) {
 	time = "Evening";
 }
 let greetings = document.querySelector(".greetings");
-greetings.innerHTML = `Good ${time}, <span class="text-success">Admin</span>`;
+greetings.innerHTML = `Good ${time},`;

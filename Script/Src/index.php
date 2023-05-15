@@ -5,7 +5,7 @@
 <head>
   <meta charset="UTF-8">
   <title>UNIMED | LOGIN FORM</title>
-  <link rel="shortcut icon" href="../../Source/icon/logounimed.png" type="image/x-icon" />
+  <link rel="shortcut icon" href="../../Asset/img/logo.png" type="image/x-icon" />
   <link rel="stylesheet" href="../CSS/login.css">
 
   <!-- HEADER PHP CODE -->
@@ -21,7 +21,7 @@
 
 <body>
   <div class="header">
-    <img src="../../Asset/icon/logounimed.png" alt="logounimed" />
+    <img src="../../Asset/img/logounimed.png" alt="logounimed" />
     <div class="judul">
       <h1>TRI DHARMA DOSEN</h1>
     </div>
