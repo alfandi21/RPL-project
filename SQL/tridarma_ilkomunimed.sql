@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 11, 2023 at 04:29 PM
+-- Generation Time: May 16, 2023 at 07:14 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -24,19 +24,6 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `datatridarma`
---
-
-CREATE TABLE `datatridarma` (
-  `id` int(20) NOT NULL,
-  `Judul` varchar(100) NOT NULL,
-  `volume/No/Tahun` varchar(20) NOT NULL,
-  `Penerbit` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `data_dosen`
 --
 
@@ -47,8 +34,33 @@ CREATE TABLE `data_dosen` (
   `golongan` int(11) NOT NULL,
   `pendidikanS1` varchar(20) NOT NULL,
   `pendidikanS2` varchar(20) NOT NULL,
-  `pendidikanS3` varchar(20) NOT NULL
+  `pendidikanS3` varchar(20) NOT NULL,
+  `foto` varchar(500) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `data_tridharma`
+--
+
+CREATE TABLE `data_tridharma` (
+  `id` int(11) NOT NULL,
+  `Judul` varchar(100) NOT NULL,
+  `tipe` varchar(50) NOT NULL,
+  `Tahun` year(4) NOT NULL,
+  `nip` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `data_tridharma`
+--
+
+INSERT INTO `data_tridharma` (`id`, `Judul`, `tipe`, `Tahun`, `nip`) VALUES
+(1, 'Analisis Jaringan Komputer', 'Riset', 2021, '22211122'),
+(2, 'Algoritma dan Pemrograman Dasar', 'Pengajaran', 2019, '22211122'),
+(3, 'Penerapan Teknologi Chat GPT pada SMA ABCD', 'Dedikasi', 2020, '22211122'),
+(4, 'Analsisi Kesalahan Mahasiswa Ilkom Unimed ', 'Dedikasi', 2023, '22211122');
 
 -- --------------------------------------------------------
 
@@ -82,38 +94,41 @@ CREATE TABLE `tb_dosen` (
   `gender` varchar(20) NOT NULL,
   `nip` varchar(25) NOT NULL,
   `nidn` varchar(25) NOT NULL,
-  `jabatan` varchar(50) NOT NULL,
+  `golongan/jabatan` varchar(50) NOT NULL,
+  `jabatan_fungsional` varchar(100) NOT NULL,
   `birthdate` date NOT NULL,
+  `tempat` varchar(50) NOT NULL,
   `email` varchar(50) NOT NULL,
   `no_hp` varchar(15) NOT NULL,
   `alamat` text NOT NULL,
   `no_tlp_kantor` varchar(15) NOT NULL,
   `pendidikanS1` varchar(50) NOT NULL,
   `pendidikanS2` varchar(50) NOT NULL,
-  `pendidikanS3` varchar(50) NOT NULL
+  `pendidikanS3` varchar(50) NOT NULL,
+  `foto` varchar(500) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tb_dosen`
 --
 
-INSERT INTO `tb_dosen` (`id`, `nama`, `gender`, `nip`, `nidn`, `jabatan`, `birthdate`, `email`, `no_hp`, `alamat`, `no_tlp_kantor`, `pendidikanS1`, `pendidikanS2`, `pendidikanS3`) VALUES
-(1, 'PSIKA21, S.Kom, M.Kom', 'Laki-Laki', '22211122', '3332112', 'Kaprodi', '2023-01-29', 'psika21@gmail.com', '0812-3221-1122', 'UNIMED', '66 543221', 'S1 Ilmu Komputer - UNIMED', 'S2 Teknik Informatika - UGM', 'none');
+INSERT INTO `tb_dosen` (`id`, `nama`, `gender`, `nip`, `nidn`, `golongan/jabatan`, `jabatan_fungsional`, `birthdate`, `tempat`, `email`, `no_hp`, `alamat`, `no_tlp_kantor`, `pendidikanS1`, `pendidikanS2`, `pendidikanS3`, `foto`) VALUES
+(1, 'PSIKA21, S.Kom, M.Kom', 'Laki-Laki', '22211122', '3332112', 'IIIC/Letcurer', 'Kepala Prodi', '2023-01-29', 'Medan', 'psika21@gmail.com', '0812-3221-1122', 'UNIMED', '66 543221', 'S1 Ilmu Komputer - UNIMED', 'S2 Teknik Informatika - UGM', 'none', 'person.png');
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `datatridarma`
---
-ALTER TABLE `datatridarma`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indexes for table `data_dosen`
 --
 ALTER TABLE `data_dosen`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `data_tridharma`
+--
+ALTER TABLE `data_tridharma`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -133,6 +148,12 @@ ALTER TABLE `tb_dosen`
 --
 
 --
+-- AUTO_INCREMENT for table `data_tridharma`
+--
+ALTER TABLE `data_tridharma`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
 -- AUTO_INCREMENT for table `loginform`
 --
 ALTER TABLE `loginform`
@@ -147,12 +168,6 @@ ALTER TABLE `tb_dosen`
 --
 -- Constraints for dumped tables
 --
-
---
--- Constraints for table `datatridarma`
---
-ALTER TABLE `datatridarma`
-  ADD CONSTRAINT `datatridarma_ibfk_1` FOREIGN KEY (`id`) REFERENCES `data_dosen` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 --
 -- Constraints for table `data_dosen`

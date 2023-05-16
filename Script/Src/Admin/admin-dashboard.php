@@ -21,12 +21,13 @@
 <?php
     include '../../PHP/config.php';
     $NIP = '22211122';
+    // $NIP = $_SESSION["NIP"];
     // if(isset($_SESSION["NIP"]) == false){
     //     header("Location: ../../../index.php");
     // }
+    // get data of lecturer
     $get_data = mysqli_query($conf, "SELECT * FROM tb_dosen WHERE NIP = '$NIP'");
     $get = mysqli_fetch_assoc($get_data);
-    
 ?>
 
 <!-- PHP Config/n -->
@@ -53,7 +54,7 @@
                 </a>
             </li>
             <li class="mx-1">
-                <a href="admin-lecturers-data.html" class="text-decoration-none d-flex gap-3 p-2 mx-1 rounded-2">
+                <a href="admin-lecturers-data.php" class="text-decoration-none d-flex gap-3 p-2 mx-1 rounded-2">
                     <i class="material-icons-round fs-2 menu-icon">&#xf233</i>
                     <div class="d-flex align-items-center">
                         <span class="sidebar-text">Lecturer's Data</span>
@@ -61,7 +62,7 @@
                 </a>
             </li>
             <li class="mx-1">
-                <a href="admin-data-tridharma.html" class="text-decoration-none d-flex gap-3 p-2 mx-1 rounded-2">
+                <a href="admin-data-tridharma.php" class="text-decoration-none d-flex gap-3 p-2 mx-1 rounded-2">
                     <i class="material-icons-round fs-2 menu-icon">&#xf1c6</i>
                     <div class="d-flex align-items-center">
                         <span class="sidebar-text">Tri Dharma Data</span>
@@ -69,7 +70,7 @@
                 </a>
             </li>
             <li class="mx-1">
-                <a href="admin-input-tridharma.html" class="text-decoration-none d-flex gap-3 p-2 mx-1 rounded-2">
+                <a href="admin-input-tridharma.php" class="text-decoration-none d-flex gap-3 p-2 mx-1 rounded-2">
                     <i class="material-icons-round fs-2 menu-icon">&#xe2c6</i>
                     <div class="d-flex align-items-center">
                         <span class="sidebar-text">Tri Dharma Input</span>
@@ -77,7 +78,7 @@
                 </a>
             </li>
             <li class="mt-auto sign-out mx-1">
-                <a href="" class="text-decoration-none d-none d-md-flex gap-3 p-2 mx-1 rounded-2" data-bs-toggle="modal"
+                <a href="../../PHP/logout.php" class="text-decoration-none d-none d-md-flex gap-3 p-2 mx-1 rounded-2" data-bs-toggle="modal"
                     data-bs-target="#exitModal">
                     <i class="material-icons-round fs-2 menu-icon">&#xe879</i>
                     <div class="align-items-center">
@@ -197,30 +198,20 @@
             <!-- Tri Dharma Table -->
             <div class="card table-responsive d-flex mx-3 mx-md-4 mt-3 shadow overflow-x-scroll">
                 <table class="table table-sm table-borderless">
+                    <?php 
+                        //get data of tri dharma
+                        $get_tridharma = mysqli_query($conf, "SELECT * FROM data_tridharma WHERE nip = '$NIP' order by Tahun desc limit 3");
+                        while($cek = mysqli_fetch_assoc($get_tridharma)):
+                    ?>
                     <thead class="col">
                         <tr class="col d-flex p-2">
-                            <th class="col-12 col-md d-flex fs-6 fw-bold">Tri Dharma Title</th>
-                            <th class="col-4 col-md-2 d-flex fs-6 fw-bold">Years</th>
-                            <th class="col-4 col-md-2 d-flex fs-6 fw-bold">Type</th>
+                            <th class="col-12 col-md d-flex fs-6 fw-bold"><?php echo $cek['Judul']; ?></th>
+                            <th class="col-4 col-md-2 d-flex fs-6 fw-bold"><?php echo $cek['Tahun']; ?></th>
+                            <th class="col-4 col-md-2 d-flex fs-6 fw-bold"><?php echo $cek['tipe']; ?></th>
                         </tr>
                     </thead>
-                    <tbody class="col d-flex flex-column">
-                        <tr class="d-flex p-2">
-                            <td class="col-12 col-md d-flex fs-6">Tri Dharma Title</td>
-                            <td class="col-4 col-md-2 d-flex fs-6">Years</td>
-                            <td class="col-4 col-md-2 d-flex fs-6">Type</td>
-                        </tr>
-                        <tr class="d-flex p-2">
-                            <td class="col-12 col-md d-flex fs-6">Tri Dharma Title</td>
-                            <td class="col-4 col-md-2 d-flex fs-6">Years</td>
-                            <td class="col-4 col-md-2 d-flex fs-6">Type</td>
-                        </tr>
-                        <tr class="d-flex p-2">
-                            <td class="col-12 col-md d-flex fs-6">Tri Dharma Title</td>
-                            <td class="col-4 col-md-2 d-flex fs-6">Years</td>
-                            <td class="col-4 col-md-2 d-flex fs-6">Type</td>
-                        </tr>
                     </tbody>
+                    <?php endwhile; ?>
                 </table>
             </div>
         </div>

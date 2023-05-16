@@ -5,5 +5,5 @@
     $_SESSION = [];
     session_unset();
     session_destroy();
-    header ('refresh:0; ../Src/Loginpage.php');
+    header ('refresh:0; ../Src/index.php');
 ?>
