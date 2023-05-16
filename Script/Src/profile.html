@@ -136,6 +136,11 @@
                                 </div>
                                 <div class="d-flex flex-column gap-3">
                                     <div class="d-flex flex-column">
+                                        <span class="fw-semibold">NIP</span>
+                                        <input class="form-control bg-body-tertiary" type="text"
+                                            value="0123456789101112" aria-label="readonly input example">
+                                    </div>
+                                    <div class="d-flex flex-column">
                                         <span class="fw-semibold">Name</span>
                                         <input class="form-control bg-body-tertiary" type="text"
                                             value="Placeholder Name" aria-label="readonly input example">
@@ -144,11 +149,6 @@
                                         <span class="fw-semibold">Email</span>
                                         <input class="form-control bg-body-tertiary" type="text"
                                             value="email@placeholder.com" aria-label="readonly input example">
-                                    </div>
-                                    <div class="d-flex flex-column">
-                                        <span class="fw-semibold">Phone Number</span>
-                                        <input class="form-control bg-body-tertiary" type="text" value="08123456789"
-                                            aria-label="readonly input example">
                                     </div>
                                     <div class="d-flex flex-column">
                                         <span class="fw-semibold">Birth Date</span>
@@ -161,9 +161,18 @@
                                             aria-label="readonly input example">
                                     </div>
                                     <div class="d-flex flex-column">
-                                        <span class="fw-semibold">NIP</span>
-                                        <input class="form-control bg-body-tertiary" type="text"
-                                            value="0123456789101112" aria-label="readonly input example">
+                                        <span class="fw-semibold">Gender</span>
+                                        <select class="form-select bg-body-tertiary"
+                                            aria-label="Default select example">
+                                            <option disabled>Select your gender</option>
+                                            <option value="1">Male</option>
+                                            <option value="2">Female</option>
+                                        </select>
+                                    </div>
+                                    <div class="d-flex flex-column">
+                                        <span class="fw-semibold">Phone Number</span>
+                                        <input class="form-control bg-body-tertiary" type="text" value="08123456789"
+                                            aria-label="readonly input example">
                                     </div>
                                 </div>
                             </div>
@@ -173,16 +182,25 @@
                                         class="material-icons-round fs-1 border bg-body-subtle p-1 rounded bg-success text-white">&#xe80c</i>
                                     <span class="fs-4 fw-bold text-success">Academic Information</span>
                                 </div>
-                                <div class="d-flex flex-column">
-                                    <span class="fw-semibold">NIDN</span>
-                                    <input class="form-control bg-body-tertiary" type="text" value="0123456789101112"
-                                        aria-label="readonly input example">
-                                </div>
                                 <div class="d-flex flex-column gap-3">
+                                    <div class="d-flex flex-column">
+                                        <span class="fw-semibold">Position</span>
+                                        <span class="form-control bg-body-tertiary">Headmaster</span>
+                                    </div>
+                                    <div class="d-flex flex-column">
+                                        <span class="fw-semibold">NIDN</span>
+                                        <input class="form-control bg-body-tertiary" type="text"
+                                            value="0123456789101112" aria-label="readonly input example">
+                                    </div>
                                     <div class="d-flex flex-column">
                                         <span class="fw-semibold">Class/Functional</span>
                                         <input class="form-control bg-body-tertiary" type="text"
                                             value="Class/Functional" aria-label="readonly input example">
+                                    </div>
+                                    <div class="d-flex flex-column">
+                                        <span class="fw-semibold">Office Phone No.</span>
+                                        <input class="form-control bg-body-tertiary" type="text" value="08123456789"
+                                            aria-label="readonly input example">
                                     </div>
                                     <div class="d-flex flex-column">
                                         <span class="fw-semibold">Bachelor Degree</span>
@@ -208,7 +226,7 @@
                             <i class="material-icons-round">&#xe5cd</i>
                             <span>Cancel</span>
                         </a>
-                        <a href="#" class="btn btn-primary my-2 p-2 gap-2 d-flex">
+                        <a href="#" class="btn btn-success my-2 p-2 gap-2 d-flex">
                             <i class="material-icons-round">&#xe161</i>
                             <span>Save</span>
                         </a>
