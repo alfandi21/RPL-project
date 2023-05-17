@@ -11,28 +11,27 @@
     <!-- Main CSS -->
     <link rel="stylesheet" href="../../CSS/main.css">
     <!-- Bootstrap 5.3 -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
     <!-- Google Material Icons -->
     <link href="https://fonts.googleapis.com/css?family=Material+Icons+Round" rel="stylesheet">
 </head>
 
 <!-- PHP Config -->
 <?php
-    include '../../PHP/config.php';
-    session_start();
-    $NIP = $_SESSION["NIP"];
-    $position = $_SESSION["posisi"];
-    if($position != "Admin"){
-        if($position == "Lecturer"){
-            header ('refresh:0; ../Dosen/user-dashboard.php');
-        }else{
-            header ('refresh:0; ../index.php');
-        }
+include '../../PHP/config.php';
+session_start();
+$NIP = $_SESSION["NIP"];
+$position = $_SESSION["posisi"];
+if ($position != "Admin") {
+    if ($position == "Lecturer") {
+        header('refresh:0; ../Dosen/user-dashboard.php');
+    } else {
+        header('refresh:0; ../index.php');
     }
-    // get data of lecturer
-    $get_data = mysqli_query($conf, "SELECT * FROM tb_dosen WHERE NIP = '$NIP'");
-    $get = mysqli_fetch_assoc($get_data);
+}
+// get data of lecturer
+$get_data = mysqli_query($conf, "SELECT * FROM tb_dosen WHERE NIP = '$NIP'");
+$get = mysqli_fetch_assoc($get_data);
 ?>
 
 <!-- PHP Config/n -->
@@ -83,8 +82,7 @@
                 </a>
             </li>
             <li class="mt-auto sign-out mx-1">
-                <a href="../../PHP/logout.php" class="text-decoration-none d-none d-md-flex gap-3 p-2 mx-1 rounded-2" data-bs-toggle="modal"
-                    data-bs-target="#exitModal">
+                <a href="../../PHP/logout.php" class="text-decoration-none d-none d-md-flex gap-3 p-2 mx-1 rounded-2" data-bs-toggle="modal" data-bs-target="#exitModal">
                     <i class="material-icons-round fs-2 menu-icon">&#xe879</i>
                     <div class="align-items-center">
                         <span class="sidebar-text">Log Out</span>
@@ -120,11 +118,9 @@
                     <span class="fs-6 fw-semibold text-white" id="name_data" value="<?php echo $get['nama']; ?>"><?php echo $get['nama']; ?></span>
                 </div>
                 <div class="dropdown">
-                    <a class="btn btn-transparent d-flex align-items-center gap-3" href="#" role="button"
-                        title="dropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="btn btn-transparent d-flex align-items-center gap-3" href="#" role="button" title="dropdown" data-bs-toggle="dropdown" aria-expanded="false">
                         <div class="profile-image">
-                            <img src="../../../Asset/icon/<?php echo $get['foto']; ?>"
-                                class="profile-image rounded-circle bg-secondary-subtle shadow-sm col" alt="">
+                            <img src="../../../Asset/icon/<?php echo $get['foto']; ?>" class="profile-image rounded-circle bg-secondary-subtle shadow-sm col" alt="">
                         </div>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end">
@@ -150,7 +146,7 @@
             <!-- Greetings -->
             <div class="d-flex align-items-center mx-3 mx-md-4 mt-3 mb-2">
                 <!-- //javascript for function -->
-                
+
                 <div class="col d-flex flex-column justify-content-center">
                     <span class="fs-4 fw-bold"><span class="greetings">Good {time}</span> <span class="text-success"><?php echo $get['nama']; ?></span></span>
                     <span class="fs-6">Tri Dharma Information System of Computer Science UNIMED</span>
@@ -161,8 +157,7 @@
             <div class="card row d-flex flex-column flex-lg-row align-items-center gap-3 p-4 mx-3 mx-md-4 mt-3 shadow">
                 <div class="col col-md-3 d-flex flex-column p-3 gap-3">
                     <div class="d-flex flex-column align-items-center">
-                        <img src="../../../Asset/icon/<?php echo $get['foto']; ?>" class="user-image rounded-circle bg-secondary-subtle shadow-sm"
-                            alt="">
+                        <img src="../../../Asset/icon/<?php echo $get['foto']; ?>" class="user-image rounded-circle bg-secondary-subtle shadow-sm" alt="">
                     </div>
                     <div class="biodata-item d-flex flex-column align-items-center">
                         <span class="fs-6 fw-semibold"><?php echo $get['nama']; ?></span>
@@ -172,7 +167,7 @@
                     <div class="col d-flex flex-column gap-4">
                         <div class="biodata-item d-flex flex-column gap-1">
                             <span class="fs-6 fw-bold">Birth Place, Date</span>
-                            <span class="fs-6"><?php echo $get['tempat'].", ".date("d F Y", strtotime($get['birthdate'])); ?></span>
+                            <span class="fs-6"><?php echo $get['tempat'] . ", " . date("d F Y", strtotime($get['birthdate'])); ?></span>
                         </div>
                         <div class="biodata-item d-flex flex-column gap-1">
                             <span class="fs-6 fw-bold">Email</span>
@@ -211,72 +206,72 @@
                         </tr>
                     </thead>
                     <tbody class="col d-flex flex-column">
-                        <?php 
-                                $get_tridharma = mysqli_query($conf, "SELECT * FROM data_tridharma WHERE NIP = '$NIP' ORDER BY tahun desc limit 3");
-                                while($tridharma = mysqli_fetch_assoc($get_tridharma)){
-                                    if($tridharma['tipe'] == "Research"){
-                                        $set = "d-flex align-items-center rounded-pill border border-2 border-primary";
-                                        $set2 = "d-flex bg-primary rounded-pill p-1";
-                                        $set3 = "text-primary material-icons-round";
-                                        $set4 = "d-flex align-items-center py-1 px-2 me-1";
-                                    }else  if($tridharma['tipe'] == "Dedication"){
-                                        $set = "d-flex align-items-center rounded-pill border border-2 border-success";
-                                        $set2 = "d-flex bg-success rounded-pill p-1";
-                                        $set3 = "text-success material-icons-round";
-                                        $set4 = "d-flex align-items-center py-1 px-2 me-1";
-                                    }else{
-                                        $set = "d-flex align-items-center rounded-pill border border-2 border-warning";
-                                        $set2 = "d-flex bg-warning rounded-4 p-1";
-                                        $set3 = "text-warning material-icons-round";
-                                        $set4 = "d-flex align-items-center py-1 px-2 me-1";
-                                    }
-                            
+                        <?php
+                        $get_tridharma = mysqli_query($conf, "SELECT * FROM data_tridharma WHERE NIP = '$NIP' ORDER BY tahun desc limit 3");
+                        while ($tridharma = mysqli_fetch_assoc($get_tridharma)) {
+                            if ($tridharma['tipe'] == "Research") {
+                                $set = "d-flex align-items-center rounded-pill border border-2 border-primary";
+                                $set2 = "d-flex bg-primary rounded-pill p-1";
+                                $set3 = "text-primary material-icons-round";
+                                $set4 = "d-flex align-items-center py-1 px-2 me-1";
+                            } else  if ($tridharma['tipe'] == "Dedication") {
+                                $set = "d-flex align-items-center rounded-pill border border-2 border-success";
+                                $set2 = "d-flex bg-success rounded-pill p-1";
+                                $set3 = "text-success material-icons-round";
+                                $set4 = "d-flex align-items-center py-1 px-2 me-1";
+                            } else {
+                                $set = "d-flex align-items-center rounded-pill border border-2 border-warning";
+                                $set2 = "d-flex bg-warning rounded-4 p-1";
+                                $set3 = "text-warning material-icons-round";
+                                $set4 = "d-flex align-items-center py-1 px-2 me-1";
+                            }
+
                         ?>
-                        <tr class="d-flex p-2">
-                            <td class="col-12 col-md d-flex align-items-center fs-6">
-                                <span>
-                                    <?php echo $tridharma['Judul']; ?>
-                                </span>
-                            </td>
-                            <td class="col-4 col-md-2 d-flex align-items-center fs-6">
-                                <span>
-                                <?php echo $tridharma['Tahun']; ?>
-                                </span>
-                            </td>
-                            <td class="col-4 col-md-2 d-flex fs-6">
-                                <div class="<?php echo $set; ?>">
-                                    <span class="<?php echo $set2; ?>">
-                                        <i class="<?php echo $set3; ?>">&#xef4a</i>
+                            <tr class="d-flex p-2">
+                                <td class="col-12 col-md d-flex align-items-center fs-6">
+                                    <span>
+                                        <?php echo $tridharma['Judul']; ?>
                                     </span>
-                                    <span class="<?php echo $set4; ?>">
-                                    <?php echo $tridharma['tipe']; ?>
+                                </td>
+                                <td class="col-4 col-md-2 d-flex align-items-center fs-6">
+                                    <span>
+                                        <?php echo $tridharma['Tahun']; ?>
                                     </span>
-                                </div>
-                            </td>
-                        </tr>
+                                </td>
+                                <td class="col-4 col-md-2 d-flex fs-6">
+                                    <div class="<?php echo $set; ?>">
+                                        <span class="<?php echo $set2; ?>">
+                                            <i class="<?php echo $set3; ?>">&#xef4a</i>
+                                        </span>
+                                        <span class="<?php echo $set4; ?>">
+                                            <?php echo $tridharma['tipe']; ?>
+                                        </span>
+                                    </div>
+                                </td>
+                            </tr>
                         <?php } ?>
                     </tbody>
                 </table>
             </div>
 
-        <!-- Log Out PopUp -->
-        <div class="modal fade" id="exitModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel">Log Out</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        Are you sure want to log out?
-                    </div>
-                    <div class="modal-footer">
-                        <a href="#" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</a>
-                        <a href="../../PHP/logout.php" type="button" class="btn btn-success">Accept</a>
+            <!-- Log Out PopUp -->
+            <div class="modal fade" id="exitModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Log Out</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            Are you sure want to log out?
+                        </div>
+                        <div class="modal-footer">
+                            <a href="#" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</a>
+                            <a href="../../PHP/logout.php" type="button" class="btn btn-success">Accept</a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
     </main>
 
     <!-- Main JS -->
@@ -286,9 +281,8 @@
         $ajax
     </script>
     <!-- Bootstrap 5.3 JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous">
-        </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous">
+    </script>
 </body>
 
 </html>

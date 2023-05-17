@@ -7,19 +7,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tri Dharma Ilmu Komputer UNIMED</title>
     <!-- Favicon -->
-    <link rel="shortcut icon" href="assets/img/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="../../../Asset/img/favicon.ico" type="image/x-icon">
     <!-- Main CSS -->
-    <link rel="stylesheet" href="assets/styles/main.css">
+    <link rel="stylesheet" href="../../css/main.css">
     <!-- Bootstrap 5.3 -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.2.0/css/datepicker.min.css"
-        rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.2.0/css/datepicker.min.css" rel="stylesheet">
     <!-- Google Material Icons -->
     <link href="https://fonts.googleapis.com/css?family=Material+Icons+Round" rel="stylesheet">
 </head>
 
 <!-- PHP Config -->
+
 
 <!-- PHP Config/n -->
 
@@ -29,7 +28,7 @@
         <!-- Sidebar Header -->
         <div class="d-none d-md-flex p-2 mt-2 mx-1 gap-2 align-items-center">
             <div class="logo">
-                <img src="assets/img/logo.png" width="48px" height="48px" alt="">
+                <img src="../../../Asset/img/logounimed.png" width="48px" height="48px" alt="">
             </div>
             <span class="fs-5 fw-bold sidebar-text text-white">TRI DHARMA</span>
         </div>
@@ -37,7 +36,7 @@
         <!-- Sidebar Body -->
         <ul class="list-unstyled col d-flex flex-column gap-1 justify-content-center mt-4 fs-6 p-1">
             <li class="mx-1">
-                <a href="admin-dashboard.html" class="text-decoration-none d-flex gap-3 p-2 mx-1 rounded-2">
+                <a href="admin-dashboard.php" class="text-decoration-none d-flex gap-3 p-2 mx-1 rounded-2">
                     <i class="material-icons-round fs-2 menu-icon">&#xe9b0</i>
                     <div class="d-flex align-items-center">
                         <span class="sidebar-text">Dashboard</span>
@@ -45,7 +44,7 @@
                 </a>
             </li>
             <li class="mx-1">
-                <a href="admin-lecturers-data.html" class="text-decoration-none d-flex gap-3 p-2 mx-1 rounded-2">
+                <a href="admin-lecturers-data.php" class="text-decoration-none d-flex gap-3 p-2 mx-1 rounded-2">
                     <i class="material-icons-round fs-2 menu-icon">&#xf233</i>
                     <div class="d-flex align-items-center">
                         <span class="sidebar-text">Lecturer's Data</span>
@@ -53,7 +52,7 @@
                 </a>
             </li>
             <li class="mx-1">
-                <a href="admin-data-tridharma.html" class="text-decoration-none d-flex gap-3 p-2 mx-1 rounded-2">
+                <a href="admin-data-tridharma.php" class="text-decoration-none d-flex gap-3 p-2 mx-1 rounded-2">
                     <i class="material-icons-round fs-2 menu-icon">&#xf1c6</i>
                     <div class="d-flex align-items-center">
                         <span class="sidebar-text">Tri Dharma Data</span>
@@ -61,7 +60,7 @@
                 </a>
             </li>
             <li class="menu-active mx-1">
-                <a href="#" class="text-decoration-none d-flex gap-3 p-2 mx-1 rounded-2">
+                <a href="admin-input-tridarma.php" class="text-decoration-none d-flex gap-3 p-2 mx-1 rounded-2">
                     <i class="material-icons-round fs-2 menu-icon">&#xe2c6</i>
                     <div class="d-flex align-items-center">
                         <span class="sidebar-text">Tri Dharma Input</span>
@@ -69,8 +68,7 @@
                 </a>
             </li>
             <li class="mt-auto sign-out mx-1">
-                <a href="" class="text-decoration-none d-none d-md-flex gap-3 p-2 mx-1 rounded-2" data-bs-toggle="modal"
-                    data-bs-target="#exitModal">
+                <a href="" class="text-decoration-none d-none d-md-flex gap-3 p-2 mx-1 rounded-2" data-bs-toggle="modal" data-bs-target="#exitModal">
                     <i class="material-icons-round fs-2 menu-icon">&#xe879</i>
                     <div class="align-items-center">
                         <span class="sidebar-text">Log Out</span>
@@ -106,11 +104,9 @@
                     <span class="fs-6 fw-semibold text-white">Placeholder Name</span>
                 </div>
                 <div class="dropdown">
-                    <a class="btn btn-transparent d-flex align-items-center gap-3" href="#" role="button"
-                        title="dropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="btn btn-transparent d-flex align-items-center gap-3" href="#" role="button" title="dropdown" data-bs-toggle="dropdown" aria-expanded="false">
                         <div class="profile-image">
-                            <img src="assets/img/person.png"
-                                class="profile-image rounded-circle bg-secondary-subtle shadow-sm col" alt="">
+                            <img src="assets/img/person.png" class="profile-image rounded-circle bg-secondary-subtle shadow-sm col" alt="">
                         </div>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end">
@@ -143,14 +139,12 @@
 
             <!-- Form -->
             <div class="card d-flex flex-column flex-md-row mx-3 mx-md-4 mt-3 shadow">
-                <form action="" method="post" class="d-flex flex-column col p-3 p-md-4 gap-5 text-center"
-                    enctype="multipart/form-data">
+                <form action="" method="post" class="d-flex flex-column col p-3 p-md-4 gap-5 text-center" enctype="multipart/form-data">
                     <div class="d-flex col flex-lg-row flex-column gap-4">
                         <div class="d-flex col flex-column gap-3">
                             <div>
                                 <label class="form-label d-flex fw-bold">Tittle</label>
-                                <input type="text" class="form-control" placeholder="Input your title here"
-                                    aria-label="readonly input example">
+                                <input type="text" class="form-control" placeholder="Input your title here" aria-label="readonly input example">
                                 </input>
                             </div>
                             <div>
@@ -164,8 +158,7 @@
                             </div>
                             <div>
                                 <label class="form-label d-flex fw-bold">Years</label>
-                                <input type="text" class="form-control" name="yearpicker" title="yearpicker"
-                                    id="yearpicker" />
+                                <input type="text" class="form-control" name="yearpicker" title="yearpicker" id="yearpicker" />
                             </div>
                         </div>
                         <div class="d-flex flex-column gap-3">
@@ -174,19 +167,15 @@
                                 <div class="d-flex flex-column gap-2">
                                     <div class="input-group">
                                         <div class="input-group-text">
-                                            <input class="form-check-input mt-0" type="radio" name="contributor1"
-                                                value="" aria-label="Radio button for following text input">
+                                            <input class="form-check-input mt-0" type="radio" name="contributor1" value="" aria-label="Radio button for following text input">
                                         </div>
-                                        <input type="text" class="form-control"
-                                            aria-label="Text input with radio button" value="No" disabled>
+                                        <input type="text" class="form-control" aria-label="Text input with radio button" value="No" disabled>
                                     </div>
                                     <div class="input-group">
                                         <div class="input-group-text">
-                                            <input class="form-check-input mt-0" type="radio" name="contributor1"
-                                                value="" aria-label="Radio button for following text input">
+                                            <input class="form-check-input mt-0" type="radio" name="contributor1" value="" aria-label="Radio button for following text input">
                                         </div>
-                                        <input type="text" class="form-control"
-                                            aria-label="Text input with radio button" placeholder="Input name here">
+                                        <input type="text" class="form-control" aria-label="Text input with radio button" placeholder="Input name here">
                                     </div>
                                 </div>
                             </div>
@@ -195,19 +184,15 @@
                                 <div class="d-flex flex-column gap-2">
                                     <div class="input-group">
                                         <div class="input-group-text">
-                                            <input class="form-check-input mt-0" type="radio" name="contributor2"
-                                                value="" aria-label="Radio button for following text input">
+                                            <input class="form-check-input mt-0" type="radio" name="contributor2" value="" aria-label="Radio button for following text input">
                                         </div>
-                                        <input type="text" class="form-control"
-                                            aria-label="Text input with radio button" value="No" disabled>
+                                        <input type="text" class="form-control" aria-label="Text input with radio button" value="No" disabled>
                                     </div>
                                     <div class="input-group">
                                         <div class="input-group-text">
-                                            <input class="form-check-input mt-0" type="radio" name="contributor2"
-                                                value="" aria-label="Radio button for following text input">
+                                            <input class="form-check-input mt-0" type="radio" name="contributor2" value="" aria-label="Radio button for following text input">
                                         </div>
-                                        <input type="text" class="form-control"
-                                            aria-label="Text input with radio button" placeholder="Input name here">
+                                        <input type="text" class="form-control" aria-label="Text input with radio button" placeholder="Input name here">
                                     </div>
                                 </div>
                             </div>
@@ -218,19 +203,15 @@
                                 <div class="d-flex flex-column gap-2">
                                     <div class="input-group">
                                         <div class="input-group-text">
-                                            <input class="form-check-input mt-0" type="radio" name="contributor3"
-                                                value="" aria-label="Radio button for following text input">
+                                            <input class="form-check-input mt-0" type="radio" name="contributor3" value="" aria-label="Radio button for following text input">
                                         </div>
-                                        <input type="text" class="form-control"
-                                            aria-label="Text input with radio button" value="No" disabled>
+                                        <input type="text" class="form-control" aria-label="Text input with radio button" value="No" disabled>
                                     </div>
                                     <div class="input-group">
                                         <div class="input-group-text">
-                                            <input class="form-check-input mt-0" type="radio" name="contributor3"
-                                                value="" aria-label="Radio button for following text input">
+                                            <input class="form-check-input mt-0" type="radio" name="contributor3" value="" aria-label="Radio button for following text input">
                                         </div>
-                                        <input type="text" class="form-control"
-                                            aria-label="Text input with radio button" placeholder="Input name here">
+                                        <input type="text" class="form-control" aria-label="Text input with radio button" placeholder="Input name here">
                                     </div>
                                 </div>
                             </div>
@@ -239,19 +220,15 @@
                                 <div class="d-flex flex-column gap-2">
                                     <div class="input-group">
                                         <div class="input-group-text">
-                                            <input class="form-check-input mt-0" type="radio" name="contributor4"
-                                                value="" aria-label="Radio button for following text input">
+                                            <input class="form-check-input mt-0" type="radio" name="contributor4" value="" aria-label="Radio button for following text input">
                                         </div>
-                                        <input type="text" class="form-control"
-                                            aria-label="Text input with radio button" value="No" disabled>
+                                        <input type="text" class="form-control" aria-label="Text input with radio button" value="No" disabled>
                                     </div>
                                     <div class="input-group">
                                         <div class="input-group-text">
-                                            <input class="form-check-input mt-0" type="radio" name="contributor4"
-                                                value="" aria-label="Radio button for following text input">
+                                            <input class="form-check-input mt-0" type="radio" name="contributor4" value="" aria-label="Radio button for following text input">
                                         </div>
-                                        <input type="text" class="form-control"
-                                            aria-label="Text input with radio button" placeholder="Input name here">
+                                        <input type="text" class="form-control" aria-label="Text input with radio button" placeholder="Input name here">
                                     </div>
                                 </div>
                             </div>
@@ -285,18 +262,21 @@
     </main>
 
     <!-- Main JS -->
-    <script src="assets/scripts/main.js"></script>
+    <script src="../../js/main.js"></script>
+    <!-- Greetings JS -->
+    <script src="../../js/greetings.js">
+        $ajax
+    </script>
     <!-- jQuery JS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <!-- Years Picker JS -->
     <script src="assets/scripts/years-picker.js"></script>
     <!-- Bootstrap 5.3 JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous">
-        </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous">
+    </script>
     <!-- Bootstrap Datepicker JS -->
-    <script
-        src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.2.0/js/bootstrap-datepicker.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.2.0/js/bootstrap-datepicker.min.js">
+    </script>
 </body>
 
 </html>

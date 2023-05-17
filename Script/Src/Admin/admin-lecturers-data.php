@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+<!-- CODE BY BRIGHT NINE -->
 
 <head>
     <meta charset="UTF-8">
@@ -7,17 +8,60 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tri Dharma Ilmu Komputer UNIMED</title>
     <!-- Favicon -->
-    <link rel="shortcut icon" href="assets/img/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="../../../Asset/img/favicon.ico" type="image/x-icon">
     <!-- Main CSS -->
-    <link rel="stylesheet" href="assets/styles/main.css">
+    <link rel="stylesheet" href="../../CSS/main.css">
     <!-- Bootstrap 5.3 -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
     <!-- Google Material Icons -->
     <link href="https://fonts.googleapis.com/css?family=Material+Icons+Round" rel="stylesheet">
 </head>
 
 <!-- PHP Config -->
+<?php
+session_start();
+include '../../PHP/config.php';
+$NIP = $_SESSION["NIP"];
+$position = $_SESSION["posisi"];
+if ($position != "Admin") {
+    if ($position == "Lecturer") {
+        header('refresh:0; ../Dosen/user-dashboard.php');
+    } else {
+        header('refresh:0; ../index.php');
+    }
+}
+
+// code untuk mendapatkan data admin
+$nip = $_SESSION['NIP'];
+$userQuery = mysqli_query($conf, "SELECT * FROM tb_dosen WHERE nip = '$nip'");
+$userData = mysqli_fetch_assoc($userQuery);
+
+// code untuk mendapatkan kumpulan data dosen
+$datas = [];
+$batas = 3;
+$halaman = isset($_GET['halaman']) ? (int)$_GET['halaman'] : 1;
+$halaman_awal = ($halaman > 1) ? ($halaman * $batas) - $batas : 0;
+
+$previous = $halaman - 1;
+$next = $halaman + 1;
+
+$data = mysqli_query($conf, "SELECT * FROM tb_dosen");
+$jumlah_data = mysqli_num_rows($data);
+$total_halaman = ceil($jumlah_data / $batas);
+if (isset($_POST['cari'])) {
+    $key = $_POST['search'];
+    $dosenQuery = mysqli_query(
+        $conf,
+        "SELECT * FROM tb_dosen WHERE nama LIKE '%$key%' OR nip LIKE '%$key%' OR golongan_jabatan LIKE '%$key%'"
+    );
+} else {
+    $dosenQuery = mysqli_query($conf, "SELECT * FROM tb_dosen limit $halaman_awal, $batas");
+}
+while ($dosenData = mysqli_fetch_assoc($dosenQuery)) {
+    $datas[] = $dosenData;
+}
+
+?>
 
 <!-- PHP Config/n -->
 
@@ -27,7 +71,7 @@
         <!-- Sidebar Header -->
         <div class="d-none d-md-flex p-2 mt-2 mx-1 gap-2 align-items-center">
             <div class="logo">
-                <img src="assets/img/logo.png" width="48px" height="48px" alt="">
+                <img src="../../../Asset/img/logounimed.png" width="48px" height="48px" alt="">
             </div>
             <span class="fs-5 fw-bold sidebar-text text-white">TRI DHARMA</span>
         </div>
@@ -35,7 +79,7 @@
         <!-- Sidebar Body -->
         <ul class="list-unstyled col d-flex flex-column gap-1 justify-content-center mt-4 fs-6 p-1">
             <li class="mx-1">
-                <a href="admin-dashboard.html" class="text-decoration-none d-flex gap-3 p-2 mx-1 rounded-2">
+                <a href="admin-dashboard.php" class="text-decoration-none d-flex gap-3 p-2 mx-1 rounded-2">
                     <i class="material-icons-round fs-2 menu-icon">&#xe9b0</i>
                     <div class="d-flex align-items-center">
                         <span class="sidebar-text">Dashboard</span>
@@ -43,7 +87,7 @@
                 </a>
             </li>
             <li class="menu-active mx-1">
-                <a href="#" class="text-decoration-none d-flex gap-3 p-2 mx-1 rounded-2">
+                <a href="admin-lectures-data.php" class="text-decoration-none d-flex gap-3 p-2 mx-1 rounded-2">
                     <i class="material-icons-round fs-2 menu-icon">&#xf233</i>
                     <div class="d-flex align-items-center">
                         <span class="sidebar-text">Lecturer's Data</span>
@@ -51,7 +95,7 @@
                 </a>
             </li>
             <li class="mx-1">
-                <a href="admin-data-tridharma.html" class="text-decoration-none d-flex gap-3 p-2 mx-1 rounded-2">
+                <a href="admin-data-tridharma.php" class="text-decoration-none d-flex gap-3 p-2 mx-1 rounded-2">
                     <i class="material-icons-round fs-2 menu-icon">&#xf1c6</i>
                     <div class="d-flex align-items-center">
                         <span class="sidebar-text">Tri Dharma Data</span>
@@ -59,7 +103,7 @@
                 </a>
             </li>
             <li class="mx-1">
-                <a href="admin-input-tridharma.html" class="text-decoration-none d-flex gap-3 p-2 mx-1 rounded-2">
+                <a href="admin-input-tridharma.php" class="text-decoration-none d-flex gap-3 p-2 mx-1 rounded-2">
                     <i class="material-icons-round fs-2 menu-icon">&#xe2c6</i>
                     <div class="d-flex align-items-center">
                         <span class="sidebar-text">Tri Dharma Input</span>
@@ -67,8 +111,7 @@
                 </a>
             </li>
             <li class="mt-auto sign-out mx-1">
-                <a href="" class="text-decoration-none d-none d-md-flex gap-3 p-2 mx-1 rounded-2" data-bs-toggle="modal"
-                    data-bs-target="#exitModal">
+                <a href="" class="text-decoration-none d-none d-md-flex gap-3 p-2 mx-1 rounded-2" data-bs-toggle="modal" data-bs-target="#exitModal">
                     <i class="material-icons-round fs-2 menu-icon">&#xe879</i>
                     <div class="align-items-center">
                         <span class="sidebar-text">Log Out</span>
@@ -101,25 +144,25 @@
             <!-- Profile Picture -->
             <div class="d-flex col align-items-center justify-content-end mx-2 gap-2">
                 <div class="profile-name">
-                    <span class="fs-6 fw-semibold text-white">Placeholder Name</span>
+                    <span class="fs-6 fw-semibold text-white">
+                        <?= $userData['nama'] ?>
+                    </span>
                 </div>
                 <div class="dropdown">
-                    <a class="btn btn-transparent d-flex align-items-center gap-3" href="#" role="button"
-                        title="dropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="btn btn-transparent d-flex align-items-center gap-3" href="#" role="button" title="dropdown" data-bs-toggle="dropdown" aria-expanded="false">
                         <div class="profile-image">
-                            <img src="assets/img/person.png"
-                                class="profile-image rounded-circle bg-secondary-subtle shadow-sm col" alt="">
+                            <img src="../../../Asset/icon/<?= $userData['foto'] ?>" class="profile-image rounded-circle bg-secondary-subtle shadow-sm col" alt="">
                         </div>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end">
                         <li>
-                            <a href="profile.html" class="dropdown-item d-flex align-items-center" href="#">
+                            <a href="../profile.php" class="dropdown-item d-flex align-items-center" href="#">
                                 <i class="material-icons-round">&#xe7fd</i>
                                 <span class="ms-2">Profile</span>
                             </a>
                         </li>
                         <li class="d-flex d-md-none">
-                            <a href="index.html" class="dropdown-item d-flex align-items-center" href="#">
+                            <a href="../../PHP/logout.php" class="dropdown-item d-flex align-items-center" href="#">
                                 <i class="material-icons-round">&#xe879</i>
                                 <span class="ms-2">Log Out</span>
                             </a>
@@ -143,9 +186,9 @@
             <div class="card table-responsive d-flex mx-3 mx-md-4 mt-3 shadow overflow-x-scroll">
                 <!-- Search Bar -->
                 <div class="col col-md-5 d-flex justify-content-end align-items-center gap-3 p-2">
-                    <form class="input-group" action="">
-                        <input type="text" class="form-control" id="search" placeholder="Search" aria-label="Search">
-                        <button class="d-flex btn btn-success" type="button">
+                    <form class="input-group" action="" method="post">
+                        <input type="text" class="form-control" name="search" id="search" placeholder="Search" aria-label="Search">
+                        <button class="d-flex btn btn-success" type="submit" name="cari">
                             <i class="material-icons-round">&#xe8b6</i>
                         </button>
                     </form>
@@ -161,25 +204,30 @@
                         </tr>
                     </thead>
                     <tbody class="col d-flex flex-column">
-                        <tr class="d-flex p-2">
-                            <td class="col-6 col-md d-flex align-items-center gap-3 p-2 fs-6">
-                                <img src="assets/img/person.png" class="rounded-circle bg-secondary-subtle shadow-sm"
-                                    width="40px" height="40px" alt="">
-                                <span>
-                                    Placeholder Name
-                                </span>
-                            </td>
-                            <td class="col-5 col-md-4 d-flex align-items-center fs-6">
-                                <span>
-                                    012345678910111213
-                                </span>
-                            </td>
-                            <td class="col-5 col-md-3 d-flex align-items-center fs-6">
-                                <span>
-                                    Class/Functional
-                                </span>
-                            </td>
-                        </tr>
+                        <?php
+                        foreach ($datas as $d) :
+                        ?>
+                            <tr class="d-flex p-2">
+                                <td class="col-6 col-md d-flex align-items-center gap-3 p-2 fs-6">
+                                    <img src="../../../Asset/icon/<?= $d['foto'] ?>" class="rounded-circle bg-secondary-subtle shadow-sm" width="40px" height="40px" alt="">
+                                    <span>
+                                        <?= $d['nama'] ?>
+                                    </span>
+                                </td>
+                                <td class="col-5 col-md-4 d-flex align-items-center fs-6">
+                                    <span>
+                                        <?= $d['nip'] ?>
+                                    </span>
+                                </td>
+                                <td class="col-5 col-md-3 d-flex align-items-center fs-6">
+                                    <span>
+                                        <?= $d['golongan_jabatan'] ?>
+                                    </span>
+                                </td>
+                            </tr>
+                        <?php
+                        endforeach;
+                        ?>
                     </tbody>
                 </table>
             </div>
@@ -187,20 +235,23 @@
             <!-- Pagination -->
             <nav aria-label="..." class="d-flex justify-content-center mt-auto">
                 <ul class="pagination">
-                    <li class="page-item disabled">
-                        <a class="page-link d-flex"><i class="material-icons-round">&#xe408</i></a>
+                    <li class="page-item">
+                        <a class="page-link d-flex" <?php if ($halaman > 1) {
+                                                        echo "href='?halaman=$previous'";
+                                                    } ?>><i class="material-icons-round">&#xe408</i></a>
                     </li>
-                    <li class="page-item active" aria-current="page">
-                        <a class="page-link" href="#">1</a>
+                    <?php
+                    for ($x = 1; $x <= $total_halaman; $x++) :
+                    ?>
+                        <li class="page-item active" aria-current="page">
+                            <a class="page-link" href="?halaman=<?php echo $x ?>"><?php echo $x; ?></a>
+                        </li>
+                    <?php endfor; ?>
                     </li>
                     <li class="page-item">
-                        <a class="page-link" href="#">2</a>
-                    </li>
-                    <li class="page-item">
-                        <a class="page-link" href="#">3</a>
-                    </li>
-                    <li class="page-item">
-                        <a class="page-link d-flex" href="#"><i class="material-icons-round">&#xe409</i></a>
+                        <a class="page-link d-flex" <?php if ($halaman < $total_halaman) {
+                                                        echo "href='?halaman=$next'";
+                                                    } ?>><i class="material-icons-round">&#xe409</i></a>
                     </li>
                 </ul>
             </nav>
@@ -227,11 +278,14 @@
     </main>
 
     <!-- Main JS -->
-    <script src="assets/scripts/main.js"></script>
+    <script src="../../js/main.js"></script>
+    <!-- Greetings JS -->
+    <script src="../../js/greetings.js">
+        $ajax
+    </script>
     <!-- Bootstrap 5.3 JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous">
-        </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous">
+    </script>
 </body>
 
 </html>

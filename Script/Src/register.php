@@ -44,13 +44,14 @@
                 </div>
 
                 <!-- Register Form -->
-                <form action="../PHP/regist.php" method="post" enctype="multipart/form-data" class="d-flex flex-column gap-4 px-3">
+                <form action="../PHP/regist.php" method="post" enctype="multipart/form-data"
+                    class="d-flex flex-column gap-4 px-3">
                     <div class="d-flex flex-column flex-md-row gap-3 gap-md-5">
 
                         <!-- First Column -->
                         <div class="d-flex col flex-column gap-3">
                             <div class="d-flex col flex-column gap-3">
-                            <div class="d-flex flex-column">
+                                <div class="d-flex flex-column">
                                     <span class="fw-semibold">Photo</span>
                                     <input class="form-control text-field text" id="formFile" name="foto" type="file">
                                 </div>
@@ -61,8 +62,8 @@
                                 </div>
                                 <div class="d-flex flex-column">
                                     <span class="fw-semibold">Password</span>
-                                    <input class="form-control bg-body-tertiary" type="text" placeholder="Password" name ="password"
-                                        aria-label="readonly input example">
+                                    <input class="form-control bg-body-tertiary" type="text" placeholder="Password"
+                                        name="password" aria-label="readonly input example">
                                 </div>
                                 <div class="d-flex flex-column">
                                     <span class="fw-semibold">Name</span>
@@ -88,28 +89,28 @@
                             </div>
                             <div class="d-flex flex-column">
                                 <span class="fw-semibold">Birth Date</span>
-                                <input class="form-control bg-body-tertiary" type="text" placeholder="01/01/1990" name="birth"
-                                    id="datepicker" aria-label="readonly input example">
+                                <input class="form-control bg-body-tertiary" type="date" placeholder="01/01/1990"
+                                    name="date" aria-label="readonly input example">
                             </div>
                             <div class="d-flex flex-column">
                                 <span class="fw-semibold">Birth Place</span>
-                                <input class="form-control bg-body-tertiary" type="text" placeholder="Birth Place" name="place"
-                                    aria-label="readonly input example">
+                                <input class="form-control bg-body-tertiary" type="text" placeholder="Birth Place"
+                                    name="place" aria-label="readonly input example">
                             </div>
                             <div class="d-flex flex-column">
                                 <span class="fw-semibold">Address</span>
-                                <input class="form-control bg-body-tertiary" type="text" placeholder="Address" name="address"
-                                    aria-label="readonly input example">
+                                <input class="form-control bg-body-tertiary" type="text" placeholder="Address"
+                                    name="address" aria-label="readonly input example">
                             </div>
                             <div class="d-flex flex-column">
                                 <span class="fw-semibold">Office Phone No.</span>
-                                <input class="form-control bg-body-tertiary" type="text" placeholder="0612345678" name="office-phone"
-                                    aria-label="readonly input example">
+                                <input class="form-control bg-body-tertiary" type="text" placeholder="0612345678"
+                                    name="office-phone" aria-label="readonly input example">
                             </div>
                             <div class="d-flex flex-column">
                                 <span class="fw-semibold">Phone Number</span>
-                                <input class="form-control bg-body-tertiary" type="text" placeholder="08123456789" name="phone-number"
-                                    aria-label="readonly input example">
+                                <input class="form-control bg-body-tertiary" type="text" placeholder="08123456789"
+                                    name="phone-number" aria-label="readonly input example">
                             </div>
                         </div>
 
@@ -126,8 +127,8 @@
                             </div>
                             <div class="d-flex flex-column">
                                 <span class="fw-semibold">NIDN</span>
-                                <input class="form-control bg-body-tertiary" type="text" placeholder="0123456789101112" name="NIDN"
-                                    aria-label="readonly input example">
+                                <input class="form-control bg-body-tertiary" type="text" placeholder="0123456789101112"
+                                    name="NIDN" aria-label="readonly input example">
                             </div>
                             <div class="d-flex flex-column gap-3">
                                 <div class="d-flex flex-column">
@@ -138,18 +139,18 @@
                             </div>
                             <div class="d-flex flex-column">
                                 <span class="fw-semibold">Bachelor Degree</span>
-                                <input class="form-control bg-body-tertiary" type="text" placeholder="Bachelor Degree" name="S1"
-                                    aria-label="readonly input example">
+                                <input class="form-control bg-body-tertiary" type="text" placeholder="Bachelor Degree"
+                                    name="S1" aria-label="readonly input example">
                             </div>
                             <div class="d-flex flex-column">
                                 <span class="fw-semibold">Master Degree</span>
-                                <input class="form-control bg-body-tertiary" type="text" placeholder="Master Degree" name="S2"
-                                    aria-label="readonly input example">
+                                <input class="form-control bg-body-tertiary" type="text" placeholder="Master Degree"
+                                    name="S2" aria-label="readonly input example">
                             </div>
                             <div class="d-flex flex-column">
                                 <span class="fw-semibold">Doctor Degree</span>
-                                <input class="form-control bg-body-tertiary" type="text" placeholder="Doctor Degree" name="S3"
-                                    aria-label="readonly input example">
+                                <input class="form-control bg-body-tertiary" type="text" placeholder="Doctor Degree"
+                                    name="S3" aria-label="readonly input example">
                             </div>
                         </div>
                     </div>
@@ -171,14 +172,14 @@
     <!-- Bootstrap 5.3 JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous">
-        </script>
+    </script>
 
     <!-- JQuery Library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
     <!-- Bootstrap Datepicker -->
-    <script
-        src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js">
+    </script>
 
     <!-- Datepicker JS -->
     <script src="../js/date-picker.js"></script>

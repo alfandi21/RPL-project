@@ -19,25 +19,50 @@
 
 <!-- PHP Config -->
 <?php
-    include '../../PHP/config.php';
-    session_start();
-    $NIP = $_SESSION["NIP"];
-    $position = $_SESSION["posisi"];
-    if($position != "Admin"){
-        if($position == "Lecturer"){
-            header ('refresh:0; ../Dosen/user-dashboard.php');
-        }else{
-            header ('refresh:0; ../index.php');
-        }
+session_start();
+include '../../PHP/config.php';
+$nip = $_SESSION["NIP"];
+$position = $_SESSION["posisi"];
+if ($position != "Admin") {
+    if ($position == "Lecturer") {
+        header('refresh:0; ../Dosen/user-dashboard.php');
+    } else {
+        header('refresh:0; ../index.php');
     }
-    //get identitiy of lecturer
-    $get_identity = mysqli_query($conf, "SELECT * FROM tb_dosen WHERE NIP = '$NIP'");
-    $set = mysqli_fetch_assoc($get_identity);
-    $nama = $set['nama'];
-    // get data of tridharma
-    // $get_data = mysqli_query($conf, "SELECT * FROM data_tridharma WHERE NIP = '$NIP'");
-    // $get = mysqli_fetch_assoc($get_data);
+}
+
+// code untuk mendapatkan data admin
+$userQuery = mysqli_query($conf, "SELECT * FROM tb_dosen WHERE nip = '$nip'");
+$userData = mysqli_fetch_assoc($userQuery);
+
+// code untuk mendapatkan kumpulan data tridarma
+// code untuk mendapatkan kumpulan data dosen
+$datas = [];
+$batas = 3;
+$halaman = isset($_GET['halaman']) ? (int)$_GET['halaman'] : 1;
+$halaman_awal = ($halaman > 1) ? ($halaman * $batas) - $batas : 0;
+
+$previous = $halaman - 1;
+$next = $halaman + 1;
+
+$data = mysqli_query($conf, "SELECT * FROM data_tridharma WHERE nip = '$nip'");
+$jumlah_data = mysqli_num_rows($data);
+$total_halaman = ceil($jumlah_data / $batas);
+if (isset($_POST['cari'])) {
+    $key = $_POST['search'];
+    $dosenQuery = mysqli_query(
+        $conf,
+        "SELECT * FROM data_tridharma WHERE nip = '$nip' AND Judul  LIKE '%$key%' OR nip LIKE '%$key%' OR Tahun LIKE '%$key%' or tipe LIKE '%$key%'"
+    );
+} else {
+    $dosenQuery = mysqli_query($conf, "SELECT * FROM data_tridharma WHERE nip = '$nip' limit $halaman_awal, $batas");
+}
+while ($dosenData = mysqli_fetch_assoc($dosenQuery)) {
+    $datas[] = $dosenData;
+}
+
 ?>
+
 <!-- PHP Config/n -->
 
 <body class="d-none">
@@ -46,7 +71,7 @@
         <!-- Sidebar Header -->
         <div class="d-none d-md-flex p-2 mt-2 mx-1 gap-2 align-items-center">
             <div class="logo">
-                <img src="../../../Asset/img/logo.png" width="48px" height="48px" alt="">
+                <img src="../../../Asset/img/logounimed.png" width="48px" height="48px" alt="">
             </div>
             <span class="fs-5 fw-bold sidebar-text text-white">TRI DHARMA</span>
         </div>
@@ -86,7 +111,7 @@
                 </a>
             </li>
             <li class="mt-auto sign-out mx-1">
-                <a href="../../PHP/logout.php" class="text-decoration-none d-none d-md-flex gap-3 p-2 mx-1 rounded-2" data-bs-toggle="modal"
+                <a href="" class="text-decoration-none d-none d-md-flex gap-3 p-2 mx-1 rounded-2" data-bs-toggle="modal"
                     data-bs-target="#exitModal">
                     <i class="material-icons-round fs-2 menu-icon">&#xe879</i>
                     <div class="align-items-center">
@@ -120,13 +145,15 @@
             <!-- Profile Picture -->
             <div class="d-flex col align-items-center justify-content-end mx-2 gap-2">
                 <div class="profile-name">
-                    <span class="fs-6 fw-semibold text-white"><?php echo $set['nama']; ?></span>
+                    <span class="fs-6 fw-semibold text-white">
+                        <?= $userData['nama'] ?>
+                    </span>
                 </div>
                 <div class="dropdown">
                     <a class="btn btn-transparent d-flex align-items-center gap-3" href="#" role="button"
                         title="dropdown" data-bs-toggle="dropdown" aria-expanded="false">
                         <div class="profile-image">
-                            <img src="../../../Asset/icon/<?php echo $set['foto']; ?>"
+                            <img src="../../../Asset/icon/<?= $userData['foto'] ?>"
                                 class="profile-image rounded-circle bg-secondary-subtle shadow-sm col" alt="">
                         </div>
                     </a>
@@ -138,7 +165,7 @@
                             </a>
                         </li>
                         <li class="d-flex d-md-none">
-                            <a href="../../PHP/logout.php" class="dropdown-item d-flex align-items-center" href="#">
+                            <a href="index.html" class="dropdown-item d-flex align-items-center" href="#">
                                 <i class="material-icons-round">&#xe879</i>
                                 <span class="ms-2">Log Out</span>
                             </a>
@@ -162,9 +189,10 @@
             <div class="card table-responsive d-flex mx-3 mx-md-4 mt-3 shadow overflow-x-scroll">
                 <!-- Search Bar -->
                 <div class="col col-md-5 d-flex justify-content-end align-items-center gap-3 p-2">
-                    <form class="input-group" action="">
-                        <input type="text" class="form-control" id="search" placeholder="Search" aria-label="Search">
-                        <button class="d-flex btn btn-success" type="button">
+                    <form class="input-group" action="" method="post">
+                        <input type="text" class="form-control" id="search" name="search" placeholder="Search"
+                            aria-label="Search">
+                        <button class="d-flex btn btn-success" name="cari" type="submit">
                             <i class="material-icons-round">&#xe8b6</i>
                         </button>
                     </form>
@@ -181,39 +209,14 @@
                             <th class="col-4 col-lg-2 col-xl-1 d-flex fs-6 fw-bold">Action</th>
                         </tr>
                     </thead>
-                    <?php 
-                        $get = mysqli_query($conf, "SELECT * FROM data_tridharma WHERE nip = '$NIP'");
-                        $no = 0;
-                        while($take = mysqli_fetch_assoc($get)){
-                            $no++;
-                            $id = "flush-collapse" . $no;
-                            $judul = $take['Judul'];
-                            if($take['tipe'] == "Research"){
-                                $set = "col-4 col-lg-3 col-xl-2 d-flex align-items-center fs-6";
-                                $set2 = "d-flex align-items-center rounded-pill border border-2 border-primary";
-                                $set3 = "d-flex bg-primary rounded-pill p-1";
-                                $set4 = "text-primary material-icons-round";
-                                $set5 = "d-flex align-items-center py-1 px-2 me-1";
-                            }else  if($take['tipe'] == "Dedication"){
-                                $set = "col-4 col-lg-3 col-xl-2 d-flex align-items-center fs-6";
-                                $set2 = "d-flex align-items-center rounded-pill border border-2 border-success";
-                                $set3 = "d-flex bg-success rounded-pill p-1";
-                                $set4 = "text-success material-icons-round";
-                                $set5 = "d-flex align-items-center py-1 px-2 me-1";
-                            }else{
-                                $set = "col-4 col-lg-3 col-xl-2 d-flex align-items-center fs-6";
-                                $set2 = "d-flex align-items-center rounded-pill border border-2 border-warning";
-                                $set3 = "d-flex bg-warning rounded-4 p-1";
-                                $set4 = "text-warning material-icons-round";
-                                $set5 = "d-flex align-items-center py-1 px-2 me-1";
-                            }
-                        
-                    ?>
                     <tbody class="col d-flex flex-column">
+                        <?php
+                        foreach ($datas as $d) :
+                        ?>
                         <tr class="d-flex p-2">
                             <td class="col-12 col-lg-8 col-xl d-flex align-items-center gap-3 p-2 fs-6">
                                 <span>
-                                <?php echo $take['Judul']; ?>
+                                    <?= $d['Judul'] ?>
                                 </span>
                             </td>
                             <td class="col-7 col-xl-4 d-flex flex-column justify-content-center fs-6">
@@ -221,28 +224,25 @@
                                     <div class="accordion-item">
                                         <h2 class="accordion-header">
                                             <button class="accordion-button collapsed p-2" type="button"
-                                                data-bs-toggle="collapse" data-bs-target="#<?= $id;?>"
-                                                aria-expanded="false" aria-controls="<?= $id;?>">
-                                                <span>
-                                                    <?php echo $nama; ?> 
-                                                </span>
+                                                data-bs-toggle="collapse" data-bs-target="#flush-collapse1"
+                                                aria-expanded="false" aria-controls="flush-collapse1">
+                                                Placeholder Name1
                                             </button>
                                         </h2>
-                                        <div id="<?= $id;?>"  class="accordion-collapse collapse">
+                                        <div id="flush-collapse1" class="accordion-collapse collapse">
                                             <div class="accordion-body p-2 d-flex flex-column">
-                                                <?php 
-
-                                                    $check2 = mysqli_query($conf, "SELECT * FROM data_tridharma WHERE Judul = '$judul'");
-                                                    while($pu = mysqli_fetch_assoc($check2)){
-                                                        $nip = $pu['nip'];
-                                                        $get2 = mysqli_query($conf, "SELECT * FROM tb_dosen WHERE NIP = '$nip'");
-                                                        $set10 = mysqli_fetch_assoc($get2);
-                                                        $tim = $set10['nama'];
-                                                ?>
                                                 <span>
-                                                    <?php echo $tim; ?>
+                                                    Placeholder Name2
                                                 </span>
-                                                <?php } ?>
+                                                <span>
+                                                    Placeholder Name3
+                                                </span>
+                                                <span>
+                                                    Placeholder Name4
+                                                </span>
+                                                <span>
+                                                    Placeholder Name5
+                                                </span>
                                             </div>
                                         </div>
                                     </div>
@@ -250,51 +250,74 @@
                             </td>
                             <td class="col-4 col-lg-2 col-xl-1 d-flex align-items-center fs-6">
                                 <span>
-                                <?php echo $take['Tahun']; ?>
+                                    <?= $d['Tahun'] ?>
                                 </span>
                             </td>
-                            <td class="<?php echo $set; ?>">
-                                <div class="<?php echo $set2; ?>">
-                                    <span class="<?php echo $set3; ?>">
-                                        <i class="<?php echo $set4; ?>">&#xef4a</i>
+                            <?php
+                                if ($d['tipe'] == "Research") {
+                                    $class1 = "col-4 col-lg-3 col-xl-2 d-flex align-items-center fs-6";
+                                    $class2 = "d-flex align-items-center rounded-pill border border-2 border-primary";
+                                    $class3 = "d-flex bg-primary rounded-pill p-1";
+                                    $class4 = "text-primary material-icons-round";
+                                    $class5 = "d-flex align-items-center py-1 px-2 me-1";
+                                } else if ($d['tipe'] == "Teaching") {
+                                    $class1 = "col-4 col-lg-3 col-xl-2 d-flex align-items-center fs-6";
+                                    $class2 = "d-flex align-items-center rounded-pill border border-2 border-warning";
+                                    $class3 = "d-flex bg-warning rounded-4 p-1";
+                                    $class4 = "text-warning material-icons-round";
+                                    $class5 = "d-flex align-items-center py-1 px-2 me-1";
+                                } else if ($d['tipe'] == "Dedication") {
+                                    $class1 = "col-4 col-lg-3 col-xl-2 d-flex align-items-center fs-6";
+                                    $class2 = "d-flex align-items-center rounded-pill border border-2 border-success";
+                                    $class3 = "d-flex bg-success rounded-pill p-1";
+                                    $class4 = "text-success material-icons-round";
+                                    $class5 = "d-flex align-items-center py-1 px-2 me-1";
+                                }
+                                ?>
+                            <td class="<?= $class1 ?>">
+                                <div class="<?= $class2 ?>">
+                                    <span class="<?= $class3 ?>">
+                                        <i class="<?= $class4 ?>">&#xef4a</i>
                                     </span>
-                                    <span class="<?php echo $set5; ?>">
-                                    <?php echo $take['tipe']; ?>
+                                    <span class="<?= $class5 ?>">
+                                        <?= $d['tipe'] ?>
                                     </span>
                                 </div>
                             </td>
                             <td class="col-4 col-lg-2 col-xl-1 d-flex align-items-center fs-6">
                                 <div class="d-flex gap-1">
-                                    <?php $_SESSION['judul'] =  $take['Judul'];  ?>
+                                    <?php $_SESSION['judul'] =  $d['Judul'];  ?>
                                     <a href="../../PHP/delete.php" class="btn btn-danger d-flex align-items-center p-1">
                                         <i class="material-icons-round">&#xe872</i>
                                     </a>
                                 </div>
                             </td>
                         </tr>
-                        
+                        <?php endforeach; ?>
                     </tbody>
-                    <?php } ?>
                 </table>
             </div>
 
             <!-- Pagination -->
             <nav aria-label="..." class="d-flex justify-content-center mt-auto">
                 <ul class="pagination">
-                    <li class="page-item disabled">
-                        <a class="page-link d-flex"><i class="material-icons-round">&#xe408</i></a>
+                    <li class="page-item">
+                        <a class="page-link d-flex" <?php if ($halaman > 1) {
+                                                        echo "href='?halaman=$previous'";
+                                                    } ?>><i class="material-icons-round">&#xe408</i></a>
                     </li>
+                    <?php
+                    for ($x = 1; $x <= $total_halaman; $x++) :
+                    ?>
                     <li class="page-item active" aria-current="page">
-                        <a class="page-link" href="#">1</a>
+                        <a class="page-link" href="?halaman=<?php echo $x ?>"><?php echo $x; ?></a>
+                    </li>
+                    <?php endfor; ?>
                     </li>
                     <li class="page-item">
-                        <a class="page-link" href="#">2</a>
-                    </li>
-                    <li class="page-item">
-                        <a class="page-link" href="#">3</a>
-                    </li>
-                    <li class="page-item">
-                        <a class="page-link d-flex" href="#"><i class="material-icons-round">&#xe409</i></a>
+                        <a class="page-link d-flex" <?php if ($halaman < $total_halaman) {
+                                                        echo "href='?halaman=$next'";
+                                                    } ?>><i class="material-icons-round">&#xe409</i></a>
                     </li>
                 </ul>
             </nav>
@@ -322,10 +345,14 @@
 
     <!-- Main JS -->
     <script src="../../js/main.js"></script>
+    <!-- Greetings JS -->
+    <script src="../../js/greetings.js">
+    $ajax
+    </script>
     <!-- Bootstrap 5.3 JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous">
-        </script>
+    </script>
 </body>
 
 </html>
