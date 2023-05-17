@@ -11,7 +11,8 @@
         $pass = $_POST['password'];
         $email = $_POST['email'];
         $gender = $_POST['gender'];
-        $birth = date("yyyy-m-d", $_POST['birth']);
+        $birth = strtotime($_POST['birthdate']);
+        $newdate = date('Y-m-d', $birth);
         $place = $_POST['place'];
         $address = $_POST['address'];
         $office = $_POST['office-phone'];
@@ -56,7 +57,7 @@
         }
 
         // Save the data to the database
-        $main = mysqli_query($conf, "INSERT INTO tb_dosen (`id`, `nama`, `gender`, `nip`, `nidn`, `golongan/jabatan`, `jabatan_fungsional`, `birthdate`, `tempat`, `email`, `no_hp`, `alamat`, `no_tlp_kantor`, `pendidikanS1`, `pendidikanS2`, `pendidikanS3`, `foto`) VALUES (null,'$name','$gender','$NIP','$NIDN','$class','$position','$birth','$place','$email','$phone','$address','$office','$s1','$s2','$s3','$nama')");
+        $main = mysqli_query($conf, "INSERT INTO tb_dosen (`id`, `nama`, `gender`, `nip`, `nidn`, `golongan_jabatan`, `jabatan_fungsional`, `birthdate`, `tempat`, `email`, `no_hp`, `alamat`, `no_tlp_kantor`, `pendidikanS1`, `pendidikanS2`, `pendidikanS3`, `foto`) VALUES (null,'$name','$gender','$NIP','$NIDN','$class','$position','$newdate','$place','$email','$phone','$address','$office','$s1','$s2','$s3','$nama')");
         if($main){
             $login = mysqli_query($conf, "INSERT INTO loginform VALUES ('', '$NIP', '$pass')");
         }

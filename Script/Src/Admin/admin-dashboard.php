@@ -129,13 +129,13 @@
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end">
                         <li>
-                            <a href="../profile.html" class="dropdown-item d-flex align-items-center" href="#">
+                            <a href="../profile.php" class="dropdown-item d-flex align-items-center" href="#">
                                 <i class="material-icons-round">&#xe7fd</i>
                                 <span class="ms-2">Profile</span>
                             </a>
                         </li>
                         <li class="d-flex d-md-none">
-                            <a href="../index.php" class="dropdown-item d-flex align-items-center" href="#">
+                            <a href="../../PHP/logout.php" class="dropdown-item d-flex align-items-center" href="#">
                                 <i class="material-icons-round">&#xe879</i>
                                 <span class="ms-2">Log Out</span>
                             </a>
@@ -194,7 +194,7 @@
                         </div>
                         <div class="biodata-item d-flex flex-column gap-1">
                             <span class="fs-6 fw-bold">Class/Functional</span>
-                            <span class="fs-6"><?php echo $get['golongan/jabatan']; ?></span>
+                            <span class="fs-6"><?php echo $get['golongan_jabatan']; ?></span>
                         </div>
                     </div>
                 </div>
@@ -212,24 +212,25 @@
                     </thead>
                     <tbody class="col d-flex flex-column">
                         <?php 
-                            $get_tridharma = mysqli_query($conf, "SELECT * FROM data_tridharma WHERE NIP = '$NIP' ORDER BY tahun desc limit 3");
-                            while($tridharma = mysqli_fetch_assoc($get_tridharma)){
-                                if($tridharma['tipe'] == "Research"){
-                                    $set = "d-flex align-items-center rounded-pill border border-2 border-primary";
-                                    $set2 = "d-flex bg-primary rounded-pill p-1";
-                                    $set3 = "text-primary material-icons-round";
-                                    $set4 = "d-flex align-items-center py-1 px-2 me-1";
-                                }else  if($tridharma['tipe'] == "Dedication"){
-                                    $set = "d-flex align-items-center rounded-pill border border-2 border-success";
-                                    $set2 = "d-flex bg-success rounded-pill p-1";
-                                    $set3 = "text-success material-icons-round";
-                                    $set4 = "d-flex align-items-center py-1 px-2 me-1";
-                                }else{
-                                    $set = "d-flex align-items-center rounded-pill border border-2 border-warning";
-                                    $set2 = "d-flex bg-warning rounded-4 p-1";
-                                    $set3 = "text-warning material-icons-round";
-                                    $set4 = "d-flex align-items-center py-1 px-2 me-1";
-                                }
+                                $get_tridharma = mysqli_query($conf, "SELECT * FROM data_tridharma WHERE NIP = '$NIP' ORDER BY tahun desc limit 3");
+                                while($tridharma = mysqli_fetch_assoc($get_tridharma)){
+                                    if($tridharma['tipe'] == "Research"){
+                                        $set = "d-flex align-items-center rounded-pill border border-2 border-primary";
+                                        $set2 = "d-flex bg-primary rounded-pill p-1";
+                                        $set3 = "text-primary material-icons-round";
+                                        $set4 = "d-flex align-items-center py-1 px-2 me-1";
+                                    }else  if($tridharma['tipe'] == "Dedication"){
+                                        $set = "d-flex align-items-center rounded-pill border border-2 border-success";
+                                        $set2 = "d-flex bg-success rounded-pill p-1";
+                                        $set3 = "text-success material-icons-round";
+                                        $set4 = "d-flex align-items-center py-1 px-2 me-1";
+                                    }else{
+                                        $set = "d-flex align-items-center rounded-pill border border-2 border-warning";
+                                        $set2 = "d-flex bg-warning rounded-4 p-1";
+                                        $set3 = "text-warning material-icons-round";
+                                        $set4 = "d-flex align-items-center py-1 px-2 me-1";
+                                    }
+                            
                         ?>
                         <tr class="d-flex p-2">
                             <td class="col-12 col-md d-flex align-items-center fs-6">

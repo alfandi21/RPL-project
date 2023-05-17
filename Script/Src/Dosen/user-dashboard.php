@@ -23,17 +23,14 @@
     session_start();
     $NIP = $_SESSION["NIP"];
     $position = $_SESSION["posisi"];
-    if($position != "Admin"){
-        if($position == "Lecturer"){
-            header ('refresh:0; ../Dosen/user-dashboard.php');
-        }else{
-            header ('refresh:0; ../index.php');
-        }
+    if($position == "Admin"){
+        header ('refresh:0; ../Admin/admin-dashboard.php');
     }
     // get data of lecturer
     $get_data = mysqli_query($conf, "SELECT * FROM tb_dosen WHERE NIP = '$NIP'");
     $get = mysqli_fetch_assoc($get_data);
 ?>
+
 <!-- PHP Config/n -->
 
 <body class="d-none">
@@ -58,7 +55,7 @@
                 </a>
             </li>
             <li class="mx-1">
-                <a href="user-data-tridharma.php" class="text-decoration-none d-flex gap-3 p-2 mx-1 rounded-2">
+                <a href="admin-data-tridharma.php" class="text-decoration-none d-flex gap-3 p-2 mx-1 rounded-2">
                     <i class="material-icons-round fs-2 menu-icon">&#xf1c6</i>
                     <div class="d-flex align-items-center">
                         <span class="sidebar-text">Tri Dharma Data</span>
@@ -66,7 +63,7 @@
                 </a>
             </li>
             <li class="mx-1">
-                <a href="user-input-tridharma.php" class="text-decoration-none d-flex gap-3 p-2 mx-1 rounded-2">
+                <a href="admin-input-tridharma.php" class="text-decoration-none d-flex gap-3 p-2 mx-1 rounded-2">
                     <i class="material-icons-round fs-2 menu-icon">&#xe2c6</i>
                     <div class="d-flex align-items-center">
                         <span class="sidebar-text">Tri Dharma Input</span>
@@ -102,13 +99,13 @@
 
             <!-- Logo UNIMED -->
             <div class="d-flex d-md-none align-items-center m-2">
-                <img src="assets/img/logo.png" width="40px" height="40px" alt="">
+                <img src="../../../Asset/img/logo.png" width="40px" height="40px" alt="">
             </div>
 
             <!-- Profile Picture -->
             <div class="d-flex col align-items-center justify-content-end mx-2 gap-2">
                 <div class="profile-name">
-                    <span class="fs-6 fw-semibold text-white"><?php echo $get['nama']; ?></span>
+                    <span class="fs-6 fw-semibold text-white" id="name_data" value="<?php echo $get['nama']; ?>"><?php echo $get['nama']; ?></span>
                 </div>
                 <div class="dropdown">
                     <a class="btn btn-transparent d-flex align-items-center gap-3" href="#" role="button"
@@ -140,8 +137,10 @@
         <div class="content d-flex flex-column gap-3 mb-5">
             <!-- Greetings -->
             <div class="d-flex align-items-center mx-3 mx-md-4 mt-3 mb-2">
+                <!-- //javascript for function -->
+                
                 <div class="col d-flex flex-column justify-content-center">
-                <span class="fs-4 fw-bold"><span class="greetings">Good {time}</span> <span class="text-success"><?php echo $get['nama']; ?></span></span>
+                    <span class="fs-4 fw-bold"><span class="greetings">Good {time}</span> <span class="text-success"><?php echo $get['nama']; ?></span></span>
                     <span class="fs-6">Tri Dharma Information System of Computer Science UNIMED</span>
                 </div>
             </div>
@@ -183,7 +182,7 @@
                         </div>
                         <div class="biodata-item d-flex flex-column gap-1">
                             <span class="fs-6 fw-bold">Class/Functional</span>
-                            <span class="fs-6"><?php echo $get['golongan/jabatan']; ?></span>
+                            <span class="fs-6"><?php echo $get['golongan_jabatan']; ?></span>
                         </div>
                     </div>
                 </div>
@@ -201,8 +200,7 @@
                     </thead>
                     <tbody class="col d-flex flex-column">
                         <?php 
-                            $get_tridharma = mysqli_query($conf, "SELECT * FROM data_tridharma WHERE NIP = '$NIP' ORDER BY tahun desc limit 3");
-                            if(mysqli_fetch_assoc($get_tridharma) > 0){
+                                $get_tridharma = mysqli_query($conf, "SELECT * FROM data_tridharma WHERE NIP = '$NIP' ORDER BY tahun desc limit 3");
                                 while($tridharma = mysqli_fetch_assoc($get_tridharma)){
                                     if($tridharma['tipe'] == "Research"){
                                         $set = "d-flex align-items-center rounded-pill border border-2 border-primary";
@@ -244,9 +242,7 @@
                                 </div>
                             </td>
                         </tr>
-                        <?php } }
-
-                        ?>
+                        <?php } ?>
                     </tbody>
                 </table>
             </div>
@@ -274,7 +270,9 @@
     <!-- Main JS -->
     <script src="../../js/main.js"></script>
     <!-- Greetings JS -->
-    <script src="../../js/greetings.js"></script>
+    <script src="../../js/greetings.js">
+        $ajax
+    </script>
     <!-- Bootstrap 5.3 JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous">
