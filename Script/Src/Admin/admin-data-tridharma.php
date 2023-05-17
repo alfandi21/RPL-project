@@ -186,6 +186,7 @@
                         $no = 0;
                         while($take = mysqli_fetch_assoc($get)){
                             $no++;
+                            $id = "flush-collapse" . $no;
                             $judul = $take['Judul'];
                             if($take['tipe'] == "Research"){
                                 $set = "col-4 col-lg-3 col-xl-2 d-flex align-items-center fs-6";
@@ -220,14 +221,14 @@
                                     <div class="accordion-item">
                                         <h2 class="accordion-header">
                                             <button class="accordion-button collapsed p-2" type="button"
-                                                data-bs-toggle="collapse" data-bs-target="#flush-collapse1"
-                                                aria-expanded="false" aria-controls="flush-collapse1">
+                                                data-bs-toggle="collapse" data-bs-target="#<?= $id;?>"
+                                                aria-expanded="false" aria-controls="<?= $id;?>">
                                                 <span>
                                                     <?php echo $nama; ?> 
                                                 </span>
                                             </button>
                                         </h2>
-                                        <div id="flush-collapse1"  class="accordion-collapse collapse">
+                                        <div id="<?= $id;?>"  class="accordion-collapse collapse">
                                             <div class="accordion-body p-2 d-flex flex-column">
                                                 <?php 
 
