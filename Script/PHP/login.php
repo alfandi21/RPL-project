@@ -17,17 +17,14 @@
                 if($get['jabatan_fungsional'] == "Kaprodi"){
                     $_SESSION['NIP'] = $user;
                     $_SESSION['posisi'] = "Admin";
-                    echo "<script>alert('Login Success!')</script>";
                     echo "<meta http-equiv='refresh' content='1 url=../Src/Admin/admin-dashboard.php'>";
                 }else if($get['jabatan_fungsional'] == "Co-Kaprodi"){
                     $_SESSION['NIP'] = $user;
                     $_SESSION['posisi'] = "Admin";
-                    echo "<script>alert('Login Success!')</script>";
                     echo "<meta http-equiv='refresh' content='1 url=../Src/Admin/admin-dashboard.php'>";
                 }else{
                     $_SESSION['NIP'] = $user;
                     $_SESSION['posisi'] = "Lecturer";
-                    echo "<script>alert('Login Success!')</script>";
                     echo "<meta http-equiv='refresh' content='1 url=../Src/Dosen/user-dashboard.php'>";
                 }
             }

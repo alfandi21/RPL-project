@@ -51,7 +51,7 @@
                         <div class="d-flex col flex-column gap-3">
                             <div class="d-flex col flex-column gap-3">
                             <div class="d-flex flex-column">
-                                    <span class="fw-semibold">Foto</span>
+                                    <span class="fw-semibold">Photo</span>
                                     <input class="form-control text-field text" id="formFile" name="foto" type="file">
                                 </div>
                                 <div class="d-flex flex-column">

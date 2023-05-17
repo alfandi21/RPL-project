@@ -54,7 +54,7 @@
         <!-- Sidebar Body -->
         <ul class="list-unstyled col d-flex flex-column gap-1 justify-content-center mt-4 fs-6 p-1">
             <li class="mx-1">
-                <a href="admin-dashboard.html" class="text-decoration-none d-flex gap-3 p-2 mx-1 rounded-2">
+                <a href="admin-dashboard.php" class="text-decoration-none d-flex gap-3 p-2 mx-1 rounded-2">
                     <i class="material-icons-round fs-2 menu-icon">&#xe9b0</i>
                     <div class="d-flex align-items-center">
                         <span class="sidebar-text">Dashboard</span>
@@ -266,7 +266,7 @@
                             <td class="col-4 col-lg-2 col-xl-1 d-flex align-items-center fs-6">
                                 <div class="d-flex gap-1">
                                     <?php $_SESSION['judul'] =  $take['Judul'];  ?>
-                                    <a href="" class="btn btn-danger d-flex align-items-center p-1">
+                                    <a href="../../PHP/delete.php" class="btn btn-danger d-flex align-items-center p-1">
                                         <i class="material-icons-round">&#xe872</i>
                                     </a>
                                 </div>

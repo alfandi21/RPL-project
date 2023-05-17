@@ -44,13 +44,13 @@
                         move_uploaded_file($file_tmp, '../../Asset/icon/'.$nama);
                     }else{
                         // jika ukuran file diatas 1mb
-                        echo "<script>alert('Ukuran file terlalu besar');document.location.href = '../Src/register.php';</script>";
+                        echo "<script>alert('The file too large');document.location.href = '../Src/register.php';</script>";
                     }
                 }else{
                     //ekstensi file yang diuplaod tidak sesuai
     
                     echo "<srcipt>
-                            alert('Ekstensi file yang diupload tidak sesuai');
+                            alert('The extension file is not allowed to upload');
                             document.location.href = '../Src/register.php';
                         </script>";
                 }
@@ -65,12 +65,10 @@
         if($position == "Kaprodi" || $position == "Co-Kaprodi"){
             $_SESSION['NIP'] = $NIP;
             $_SESSION['posisi'] = "Admin";
-            echo "<script>alert('Registration Success!')</script>";
             echo "<meta http-equiv='refresh' content='1 url=../Src/Admin/admin-dashboard.php'>";
         }else{
             $_SESSION['NIP'] = $NIP;
             $_SESSION['posisi'] = "Lecturer";
-            echo "<script>alert('Registration Success!')</script>";
             echo "<meta http-equiv='refresh' content='1 url=../Src/Dosen/user-dashboard.php'>";
         }
             

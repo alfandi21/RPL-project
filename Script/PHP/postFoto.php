@@ -34,7 +34,7 @@ if(isset($_POST['simpan'])){
     }
     $post = mysqli_query($conf, "UPDATE tb_dosen SET foto ='$nama' WHERE nip='$NIP'");
     if($post){
-        echo "<script>alert('The picture success to upload');document.location.href = '../Src/profile.php';</script>";
+        echo "document.location.href = '../Src/profile.php';</script>";
     }
 }
 ?>
