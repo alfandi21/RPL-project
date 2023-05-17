@@ -20,11 +20,16 @@
 <!-- PHP Config -->
 <?php
     include '../../PHP/config.php';
-    $NIP = '22211122';
-    // $NIP = $_SESSION["NIP"];
-    // if(isset($_SESSION["NIP"]) == false){
-    //     header("Location: ../../../index.php");
-    // }
+    session_start();
+    $NIP = $_SESSION["NIP"];
+    $position = $_SESSION["posisi"];
+    if($position != "Admin"){
+        if($position == "Lecturer"){
+            header ('refresh:0; ../Dosen/user-dashboard.php');
+        }else{
+            header ('refresh:0; ../index.php');
+        }
+    }
     // get data of lecturer
     $get_data = mysqli_query($conf, "SELECT * FROM tb_dosen WHERE NIP = '$NIP'");
     $get = mysqli_fetch_assoc($get_data);
@@ -197,24 +202,61 @@
 
             <!-- Tri Dharma Table -->
             <div class="card table-responsive d-flex mx-3 mx-md-4 mt-3 shadow overflow-x-scroll">
-                <table class="table table-sm table-borderless">
-                    <?php 
-                        //get data of tri dharma
-                        $get_tridharma = mysqli_query($conf, "SELECT * FROM data_tridharma WHERE nip = '$NIP' order by Tahun desc limit 3");
-                        while($cek = mysqli_fetch_assoc($get_tridharma)):
-                    ?>
+                <table class="table table-sm table-striped">
                     <thead class="col">
                         <tr class="col d-flex p-2">
-                            <th class="col-12 col-md d-flex fs-6 fw-bold"><?php echo $cek['Judul']; ?></th>
-                            <th class="col-4 col-md-2 d-flex fs-6 fw-bold"><?php echo $cek['Tahun']; ?></th>
-                            <th class="col-4 col-md-2 d-flex fs-6 fw-bold"><?php echo $cek['tipe']; ?></th>
+                            <th class="col-12 col-md d-flex fs-6 fw-bold">Tri Dharma Title</th>
+                            <th class="col-4 col-md-2 d-flex fs-6 fw-bold">Years</th>
+                            <th class="col-4 col-md-2 d-flex fs-6 fw-bold">Type</th>
                         </tr>
                     </thead>
+                    <tbody class="col d-flex flex-column">
+                        <?php 
+                            $get_tridharma = mysqli_query($conf, "SELECT * FROM data_tridharma WHERE NIP = '$NIP' ORDER BY tahun desc limit 3");
+                            while($tridharma = mysqli_fetch_assoc($get_tridharma)){
+                                if($tridharma['tipe'] == "Research"){
+                                    $set = "d-flex align-items-center rounded-pill border border-2 border-primary";
+                                    $set2 = "d-flex bg-primary rounded-pill p-1";
+                                    $set3 = "text-primary material-icons-round";
+                                    $set4 = "d-flex align-items-center py-1 px-2 me-1";
+                                }else  if($tridharma['tipe'] == "Dedication"){
+                                    $set = "d-flex align-items-center rounded-pill border border-2 border-success";
+                                    $set2 = "d-flex bg-success rounded-pill p-1";
+                                    $set3 = "text-success material-icons-round";
+                                    $set4 = "d-flex align-items-center py-1 px-2 me-1";
+                                }else{
+                                    $set = "d-flex align-items-center rounded-pill border border-2 border-warning";
+                                    $set2 = "d-flex bg-warning rounded-4 p-1";
+                                    $set3 = "text-warning material-icons-round";
+                                    $set4 = "d-flex align-items-center py-1 px-2 me-1";
+                                }
+                        ?>
+                        <tr class="d-flex p-2">
+                            <td class="col-12 col-md d-flex align-items-center fs-6">
+                                <span>
+                                    <?php echo $tridharma['Judul']; ?>
+                                </span>
+                            </td>
+                            <td class="col-4 col-md-2 d-flex align-items-center fs-6">
+                                <span>
+                                <?php echo $tridharma['Tahun']; ?>
+                                </span>
+                            </td>
+                            <td class="col-4 col-md-2 d-flex fs-6">
+                                <div class="<?php echo $set; ?>">
+                                    <span class="<?php echo $set2; ?>">
+                                        <i class="<?php echo $set3; ?>">&#xef4a</i>
+                                    </span>
+                                    <span class="<?php echo $set4; ?>">
+                                    <?php echo $tridharma['tipe']; ?>
+                                    </span>
+                                </div>
+                            </td>
+                        </tr>
+                        <?php } ?>
                     </tbody>
-                    <?php endwhile; ?>
                 </table>
             </div>
-        </div>
 
         <!-- Log Out PopUp -->
         <div class="modal fade" id="exitModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -229,7 +271,7 @@
                     </div>
                     <div class="modal-footer">
                         <a href="#" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</a>
-                        <a href="index.html" type="button" class="btn btn-success">Accept</a>
+                        <a href="../../PHP/logout.php" type="button" class="btn btn-success">Accept</a>
                     </div>
                 </div>
             </div>

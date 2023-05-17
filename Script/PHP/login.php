@@ -3,23 +3,37 @@
 
     include 'config.php';
     session_start();
-    $user = $_POST['Username'];
-    $pass = $_POST['Password'];
+    if(isset($_POST['submit'])){
+        $user = $_POST['username'];
+        $pass = $_POST['password'];
 
-    // Check username from the data
-    $check_user = mysqli_query($conf, "SELECT * FROM loginform WHERE username = '$user' AND Password = '$pass'");
-    if(mysqli_num_rows($check_user) > 0){
-        echo "<script>alert('Login Success!')</script>";
-        echo "<meta http-equiv='refresh' content='1 url=../Src/main.php'>";
-        // get position from the data
-        $position = mysqli_query($conf, "SELECT * FROM tb_dosen WHERE NIP = '$user'");
-        $poss = mysqli_fetch_assoc($jabatan_fungsional);
-        $_SESSION['NIP'] = $user;
-        if($poss == "Kepala Prodi"){
-            header("Location: ../Src/Admin/admin-dashboard.php");
+        // Check username from the data
+        $check_user = mysqli_query($conf, "SELECT * FROM loginform WHERE username = '$user' AND Password = '$pass'");
+        if(mysqli_num_rows($check_user) > 0){
+            // get position from the data
+            $position = mysqli_query($conf, "SELECT * FROM tb_dosen WHERE NIP = '$user'");
+            $get = mysqli_fetch_assoc($position);
+            if(mysqli_num_rows($check_user) > 0){
+                if($get['jabatan_fungsional'] == "Kaprodi"){
+                    $_SESSION['NIP'] = $user;
+                    $_SESSION['posisi'] = "Admin";
+                    echo "<script>alert('Login Success!')</script>";
+                    echo "<meta http-equiv='refresh' content='1 url=../Src/Admin/admin-dashboard.php'>";
+                }else if($get['jabatan_fungsional'] == "Co-Kaprodi"){
+                    $_SESSION['NIP'] = $user;
+                    $_SESSION['posisi'] = "Admin";
+                    echo "<script>alert('Login Success!')</script>";
+                    echo "<meta http-equiv='refresh' content='1 url=../Src/Admin/admin-dashboard.php'>";
+                }else{
+                    $_SESSION['NIP'] = $user;
+                    $_SESSION['posisi'] = "Lecturer";
+                    echo "<script>alert('Login Success!')</script>";
+                    echo "<meta http-equiv='refresh' content='1 url=../Src/Dosen/user-dashboard.php'>";
+                }
+            }
+        }else{
+            echo "<script>alert('Login Failed!')</script>";
+            echo "<meta http-equiv='refresh' content='1 url=../Src/Loginpage.php'>";
         }
-    }else{
-        echo "<script>alert('Login Failed!')</script>";
-        echo "<meta http-equiv='refresh' content='1 url=../Src/Loginpage.php'>";
     }
 ?>
