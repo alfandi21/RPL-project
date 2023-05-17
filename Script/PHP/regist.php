@@ -1,22 +1,80 @@
 <?php
     include 'config.php';
     session_start();
-    $NIP = $_POST["NIP"];
-    $pass = $_POST["Password"];
-    if(isset($NIP )){
-        if(isset($pass)){
-            $check = mysqli_query($conf, "SELECT * FROM loginform WHERE username = '$NIP' ");
-            if(mysqli_num_rows($check) > 0){
-                echo "<script>alert('NIP already registered!')</script>";
-                echo "<meta http-equiv='refresh' content='1 url=../Src/Loginpage.php'>";
-            }else{
-                $query = "INSERT INTO loginform VALUES ('','$NIP','$pass')";
-                mysqli_query($conf, $query);
-                $_SESSION['NIP'] = $NIP;
-                echo "<script>alert('Registration Success!')</script>";
-                echo "<meta http-equiv='refresh' content='1 url=../Src/Registrasi.php'>";
-            }
+    
+
+
+    if(isset($_POST['submit'])){
+        // Get all the data from the form
+        $name = $_POST['nama'];
+        $NIP = $_POST['NIP'];
+        $pass = $_POST['password'];
+        $email = $_POST['email'];
+        $gender = $_POST['gender'];
+        $birth = date("yyyy-m-d", $_POST['birth']);
+        $place = $_POST['place'];
+        $address = $_POST['address'];
+        $office = $_POST['office-phone'];
+        $phone = $_POST['phone-number'];
+        $position = $_POST['position'];
+        $NIDN = $_POST['NIDN'];
+        $class = $_POST['class-functional'];
+        $s1 = $_POST['S1'];
+        $s2 = $_POST['S2'];
+        $s3 = $_POST['S3'];
+        if($s3 == ""){
+            $s3 = "none";
+        }
+        //save the picture
+        if(isset($_FILES['foto'])){
+            $validation = array('png', 'jpg', 'jpeg'); // data yang diperbolehkan
+            $nama = $_FILES['foto']['name']; //mendapatkan nama dari file
+            $x = explode('.', $nama); //memecah nama file contoh file.jpg maka yang ditangkap jpg
+            $ekstensi = strtolower(end($x)); //mengambil ekstensi file b
+            $ukuran = $_FILES['foto']['size']; //mendapatkan ukuran file
+            $file_tmp = $_FILES['foto']['tmp_name']; //mendapatkan lokasi file sementara
+
+                //pengujian file 
+                if(in_array($ekstensi, $validation) === true){
+                    // upload diperbolehkan
+                    // uji jika ukuran file dibawah 1mb
+                    if($ukuran < 1044070){
+                        // jika ukuran file dibawah 1mb
+                        move_uploaded_file($file_tmp, '../../Asset/icon/'.$nama);
+                    }else{
+                        // jika ukuran file diatas 1mb
+                        echo "<script>alert('Ukuran file terlalu besar');document.location.href = '../Src/register.php';</script>";
+                    }
+                }else{
+                    //ekstensi file yang diuplaod tidak sesuai
+    
+                    echo "<srcipt>
+                            alert('Ekstensi file yang diupload tidak sesuai');
+                            document.location.href = '../Src/register.php';
+                        </script>";
+                }
         }
 
+        // Save the data to the database
+        $main = mysqli_query($conf, "INSERT INTO tb_dosen (`id`, `nama`, `gender`, `nip`, `nidn`, `golongan/jabatan`, `jabatan_fungsional`, `birthdate`, `tempat`, `email`, `no_hp`, `alamat`, `no_tlp_kantor`, `pendidikanS1`, `pendidikanS2`, `pendidikanS3`, `foto`) VALUES (null,'$name','$gender','$NIP','$NIDN','$class','$position','$birth','$place','$email','$phone','$address','$office','$s1','$s2','$s3','$nama')");
+        if($main){
+            $login = mysqli_query($conf, "INSERT INTO loginform VALUES ('', '$NIP', '$pass')");
+        }
+        
+        if($position == "Kaprodi" || $position == "Co-Kaprodi"){
+            $_SESSION['NIP'] = $NIP;
+            $_SESSION['posisi'] = "Admin";
+            echo "<script>alert('Registration Success!')</script>";
+            echo "<meta http-equiv='refresh' content='1 url=../Src/Admin/admin-dashboard.php'>";
+        }else{
+            $_SESSION['NIP'] = $NIP;
+            $_SESSION['posisi'] = "Lecturer";
+            echo "<script>alert('Registration Success!')</script>";
+            echo "<meta http-equiv='refresh' content='1 url=../Src/Dosen/user-dashboard.php'>";
+        }
+            
     }
+    
+
+    
 ?>

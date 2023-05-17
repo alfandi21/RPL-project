@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tri Dharma Ilmu Komputer UNIMED</title>
     <!-- Favicon -->
-    <link rel="shortcut icon" href="assets/img/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="../../Asset/img/favicon.ico" type="image/x-icon">
     <!-- Bootstrap 5.3 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
@@ -15,7 +15,7 @@
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
     <!-- Login CSS -->
-    <link rel="stylesheet" href="assets/styles/login.css">
+    <link rel="stylesheet" href="../CSS/login.css">
     <!-- Google Material Icons -->
     <link href="https://fonts.googleapis.com/css?family=Material+Icons+Round" rel="stylesheet">
 </head>
@@ -30,7 +30,7 @@
             <div
                 class="d-flex col-12 align-items-center justify-content-center gap-4 py-3 px-4 border border-3 border-success rounded">
                 <div class="d-flex align-items-center justify-content-center">
-                    <img src="assets/img/logo.png" alt="Logo" class="logo">
+                    <img src="../../Asset/img/logo.png" alt="Logo" class="logo">
                 </div>
                 <div class="header d-flex flex-column align-items-center ">
                     <span class="header-parent h3 fw-bold text-uppercase text-center">Tri Dharma</span>
@@ -44,73 +44,33 @@
                 </div>
 
                 <!-- Register Form -->
-                <form action="" method="post" class="d-flex flex-column gap-4 px-3">
+                <form action="../PHP/regist.php" method="post" enctype="multipart/form-data" class="d-flex flex-column gap-4 px-3">
                     <div class="d-flex flex-column flex-md-row gap-3 gap-md-5">
 
                         <!-- First Column -->
                         <div class="d-flex col flex-column gap-3">
-                            <div class="d-flex col flex-column align-items-center justify-content-center">
-                                <!-- Profile Picture -->
-                                <div class="d-flex justify-content-center">
-                                    <div class="d-flex position-relative">
-                                        <img src="assets/img/person.png"
-                                            class="profile-image-edit rounded-circle bg-secondary-subtle shadow-sm col"
-                                            width="" alt="">
-                                        <a class="btn btn-success rounded-circle position-absolute d-flex p-2 change-photo"
-                                            data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                                            <i class="material-icons-round fs-6">&#xe439</i>
-                                        </a>
-
-                                        <!-- Modal -->
-                                        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static"
-                                            data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
-                                            aria-hidden="true">
-                                            <div class="modal-dialog modal-dialog-centered">
-                                                <div class="modal-content flex-container">
-                                                    <div class="modal-header">
-                                                        <h1 class="modal-title fs-5 text" id="staticBackdropLabel">
-                                                            Change
-                                                            Photo</h1>
-                                                        <button type="button" class="btn-close bg-light"
-                                                            data-bs-dismiss="modal" aria-label="Close"></button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <div>
-                                                            <input class="form-control text-field text" id="formFile"
-                                                                type="file">
-                                                        </div>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary"
-                                                            data-bs-dismiss="modal">Cancel</button>
-                                                        <button type="button" class="btn btn-success"
-                                                            data-bs-dismiss="modal">Save</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                             <div class="d-flex col flex-column gap-3">
+                            <div class="d-flex flex-column">
+                                    <span class="fw-semibold">Foto</span>
+                                    <input class="form-control text-field text" id="formFile" name="foto" type="file">
+                                </div>
                                 <div class="d-flex flex-column">
                                     <span class="fw-semibold">NIP</span>
-                                    <input class="form-control bg-body-tertiary" type="text"
+                                    <input class="form-control bg-body-tertiary" type="text" name="NIP"
                                         placeholder="0123456789101112" aria-label="readonly input example">
                                 </div>
                                 <div class="d-flex flex-column">
                                     <span class="fw-semibold">Password</span>
-                                    <input class="form-control bg-body-tertiary" type="text" placeholder="Password"
+                                    <input class="form-control bg-body-tertiary" type="text" placeholder="Password" name ="password"
                                         aria-label="readonly input example">
                                 </div>
                                 <div class="d-flex flex-column">
                                     <span class="fw-semibold">Name</span>
-                                    <input class="form-control bg-body-tertiary" type="text"
-                                        placeholder="Name S.Kom M.Kom" aria-label="readonly input example">
+                                    <input type="text" class="form-control" name="nama" placeholder="Nama with title">
                                 </div>
                                 <div class="d-flex flex-column">
                                     <span class="fw-semibold">Email</span>
-                                    <input class="form-control bg-body-tertiary" type="text"
+                                    <input class="form-control bg-body-tertiary" type="text" name="email"
                                         placeholder="email@placeholder.com" aria-label="readonly input example">
                                 </div>
                             </div>
@@ -120,35 +80,35 @@
                         <div class="d-flex col flex-column gap-3 justify-content-center">
                             <div class="d-flex flex-column">
                                 <span class="fw-semibold">Gender</span>
-                                <select class="form-select" aria-label="Default select example">
+                                <select class="form-select" aria-label="Default select example" name="gender">
                                     <option disabled>Select your gender</option>
-                                    <option value="1">Male</option>
-                                    <option value="2">Female</option>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
                                 </select>
                             </div>
                             <div class="d-flex flex-column">
                                 <span class="fw-semibold">Birth Date</span>
-                                <input class="form-control bg-body-tertiary" type="text" placeholder="01/01/1990"
+                                <input class="form-control bg-body-tertiary" type="text" placeholder="01/01/1990" name="birth"
                                     id="datepicker" aria-label="readonly input example">
                             </div>
                             <div class="d-flex flex-column">
                                 <span class="fw-semibold">Birth Place</span>
-                                <input class="form-control bg-body-tertiary" type="text" placeholder="Birth Place"
+                                <input class="form-control bg-body-tertiary" type="text" placeholder="Birth Place" name="place"
                                     aria-label="readonly input example">
                             </div>
                             <div class="d-flex flex-column">
                                 <span class="fw-semibold">Address</span>
-                                <input class="form-control bg-body-tertiary" type="text" placeholder="Address"
+                                <input class="form-control bg-body-tertiary" type="text" placeholder="Address" name="address"
                                     aria-label="readonly input example">
                             </div>
                             <div class="d-flex flex-column">
                                 <span class="fw-semibold">Office Phone No.</span>
-                                <input class="form-control bg-body-tertiary" type="text" placeholder="0612345678"
+                                <input class="form-control bg-body-tertiary" type="text" placeholder="0612345678" name="office-phone"
                                     aria-label="readonly input example">
                             </div>
                             <div class="d-flex flex-column">
                                 <span class="fw-semibold">Phone Number</span>
-                                <input class="form-control bg-body-tertiary" type="text" placeholder="08123456789"
+                                <input class="form-control bg-body-tertiary" type="text" placeholder="08123456789" name="phone-number"
                                     aria-label="readonly input example">
                             </div>
                         </div>
@@ -157,7 +117,7 @@
                         <div class="d-flex col flex-column gap-3 justify-content-center">
                             <div class="d-flex flex-column">
                                 <span class="fw-semibold">Position</span>
-                                <select class="form-select" aria-label="Default select example">
+                                <select class="form-select" aria-label="Default select example" name="position">
                                     <option disabled>Select your position</option>
                                     <option value="Kaprodi">Kaprodi</option>
                                     <option value="Co-Kaprodi">Co-Kaprodi</option>
@@ -166,29 +126,29 @@
                             </div>
                             <div class="d-flex flex-column">
                                 <span class="fw-semibold">NIDN</span>
-                                <input class="form-control bg-body-tertiary" type="text" placeholder="0123456789101112"
+                                <input class="form-control bg-body-tertiary" type="text" placeholder="0123456789101112" name="NIDN"
                                     aria-label="readonly input example">
                             </div>
                             <div class="d-flex flex-column gap-3">
                                 <div class="d-flex flex-column">
                                     <span class="fw-semibold">Class/Functional</span>
-                                    <input class="form-control bg-body-tertiary" type="text"
+                                    <input class="form-control bg-body-tertiary" type="text" name="class-functional"
                                         placeholder="Class/Functional" aria-label="readonly input example">
                                 </div>
                             </div>
                             <div class="d-flex flex-column">
                                 <span class="fw-semibold">Bachelor Degree</span>
-                                <input class="form-control bg-body-tertiary" type="text" placeholder="Bachelor Degree"
+                                <input class="form-control bg-body-tertiary" type="text" placeholder="Bachelor Degree" name="S1"
                                     aria-label="readonly input example">
                             </div>
                             <div class="d-flex flex-column">
                                 <span class="fw-semibold">Master Degree</span>
-                                <input class="form-control bg-body-tertiary" type="text" placeholder="Master Degree"
+                                <input class="form-control bg-body-tertiary" type="text" placeholder="Master Degree" name="S2"
                                     aria-label="readonly input example">
                             </div>
                             <div class="d-flex flex-column">
                                 <span class="fw-semibold">Doctor Degree</span>
-                                <input class="form-control bg-body-tertiary" type="text" placeholder="Doctor Degree"
+                                <input class="form-control bg-body-tertiary" type="text" placeholder="Doctor Degree" name="S3"
                                     aria-label="readonly input example">
                             </div>
                         </div>
@@ -196,12 +156,11 @@
 
                     <!-- Button Form -->
                     <div class="d-flex col justify-content-between">
-                        <a href="index.html" class="btn btn-secondary my-2 p-2 gap-2 d-flex">
+                        <a href="index.php" class="btn btn-secondary my-2 p-2 gap-2 d-flex">
                             <span>Back</span>
                         </a>
-                        <a href="#" class="btn btn-success my-2 p-2 gap-2 d-flex">
-                            <span>Make account</span>
-                        </a>
+                        <input type="submit" class="btn btn-success my-2 p-2 gap-2 d-flex" name="submit">
+                        </input>
                     </div>
                 </form>
             </div>
@@ -222,7 +181,7 @@
         src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
 
     <!-- Datepicker JS -->
-    <script src="assets/scripts/date-picker.js"></script>
+    <script src="../js/date-picker.js"></script>
 </body>
 
 </html>

@@ -23,7 +23,14 @@
 </head>
 
 <!-- PHP Config -->
-
+<?php
+    session_start();
+    $position = $_SESSION["posisi"];
+    $NIP = $_SESSION["NIP"];
+    if(!isset($_SESSION['NIP'])){
+        header ('refresh:0; ../Src/index.php');
+    }
+?>
 <!-- PHP Config/n -->
 
 <body class="d-flex">

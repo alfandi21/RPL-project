@@ -33,7 +33,7 @@
             }
         }else{
             echo "<script>alert('Login Failed!')</script>";
-            echo "<meta http-equiv='refresh' content='1 url=../Src/Loginpage.php'>";
+            echo "<meta http-equiv='refresh' content='1 url=../Src/index.php'>";
         }
     }
 ?>
