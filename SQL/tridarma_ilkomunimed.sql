@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 17, 2023 at 04:05 PM
+-- Generation Time: May 18, 2023 at 07:50 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -44,7 +44,13 @@ INSERT INTO `data_tridharma` (`id`, `Judul`, `tipe`, `Tahun`, `nip`) VALUES
 (2, 'Algoritma dan Pemrograman Dasar', 'Teaching', 2019, '22211122'),
 (3, 'Penerapan Teknologi Chat GPT pada SMA ABCD', 'Dedication', 2020, '22211122'),
 (4, 'Analsisi Kesalahan Mahasiswa Ilkom Unimed ', 'Dedication', 2023, '22211122'),
-(5, 'Penerapan Teknologi Chat GPT pada SMA ABCD', 'Dedication', 2020, '1111222');
+(5, 'Penerapan Teknologi Chat GPT pada SMA ABCD', 'Dedication', 2020, '1111222'),
+(18, 'Analisis Jaringan Internet Ilmu Komputer Unimed Menggunakan Wireshark', 'Dedication', 2023, '22211122'),
+(19, 'Analisis Jaringan Internet Ilmu Komputer Unimed Menggunakan Wireshark', 'Dedication', 2023, '2233212'),
+(20, 'Analisis Jaringan Internet Ilmu Komputer Unimed Menggunakan Wireshark', 'Dedication', 2023, '1111222'),
+(21, 'Implementasi Algoritma Bubble Sort Dalam Pencarian Mahasiswa dengan Nilai Terbaik', 'Research', 2023, '22211122'),
+(22, 'Implementasi Algoritma Bubble Sort Dalam Pencarian Mahasiswa dengan Nilai Terbaik', 'Research', 2023, '1111222'),
+(23, 'Implementasi Algoritma Bubble Sort Dalam Pencarian Mahasiswa dengan Nilai Terbaik', 'Research', 2023, '2233212');
 
 -- --------------------------------------------------------
 
@@ -133,7 +139,7 @@ ALTER TABLE `tb_dosen`
 -- AUTO_INCREMENT for table `data_tridharma`
 --
 ALTER TABLE `data_tridharma`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `loginform`

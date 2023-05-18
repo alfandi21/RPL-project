@@ -18,7 +18,20 @@
 </head>
 
 <!-- PHP Config -->
-
+<?php
+include '../../PHP/config.php';
+session_start();
+$NIP = $_SESSION["NIP"];
+$position = $_SESSION["posisi"];
+if ($position != "Admin") {
+    if ($position == "Lecturer") {
+        header('refresh:0; ../Dosen/user-dashboard.php');
+    }
+}
+// get data of lecturer
+$get_data = mysqli_query($conf, "SELECT * FROM tb_dosen WHERE NIP = '$NIP'");
+$get = mysqli_fetch_assoc($get_data);
+?>
 
 <!-- PHP Config/n -->
 
@@ -68,7 +81,7 @@
                 </a>
             </li>
             <li class="mt-auto sign-out mx-1">
-                <a href="" class="text-decoration-none d-none d-md-flex gap-3 p-2 mx-1 rounded-2" data-bs-toggle="modal" data-bs-target="#exitModal">
+                <a href="../../PHP/logout.php" class="text-decoration-none d-none d-md-flex gap-3 p-2 mx-1 rounded-2" data-bs-toggle="modal" data-bs-target="#exitModal">
                     <i class="material-icons-round fs-2 menu-icon">&#xe879</i>
                     <div class="align-items-center">
                         <span class="sidebar-text">Log Out</span>
@@ -101,12 +114,12 @@
             <!-- Profile Picture -->
             <div class="d-flex col align-items-center justify-content-end mx-2 gap-2">
                 <div class="profile-name">
-                    <span class="fs-6 fw-semibold text-white">Placeholder Name</span>
+                    <span class="fs-6 fw-semibold text-white"><?= $get['nama']?></span>
                 </div>
                 <div class="dropdown">
                     <a class="btn btn-transparent d-flex align-items-center gap-3" href="#" role="button" title="dropdown" data-bs-toggle="dropdown" aria-expanded="false">
                         <div class="profile-image">
-                            <img src="assets/img/person.png" class="profile-image rounded-circle bg-secondary-subtle shadow-sm col" alt="">
+                            <img src="../../../Asset/icon/<?= $get['foto'] ?>" class="profile-image rounded-circle bg-secondary-subtle shadow-sm col" alt="">
                         </div>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end">
@@ -117,7 +130,7 @@
                             </a>
                         </li>
                         <li class="d-flex d-md-none">
-                            <a href="index.html" class="dropdown-item d-flex align-items-center" href="#">
+                            <a href="../../PHP/logout.php" class="dropdown-item d-flex align-items-center" href="#">
                                 <i class="material-icons-round">&#xe879</i>
                                 <span class="ms-2">Log Out</span>
                             </a>
@@ -144,21 +157,21 @@
                         <div class="d-flex col flex-column gap-3">
                             <div>
                                 <label class="form-label d-flex fw-bold">Tittle</label>
-                                <input type="text" class="form-control" placeholder="Input your title here" aria-label="readonly input example">
+                                <input type="text" class="form-control" placeholder="Input your title here" aria-label="readonly input example" name="title">
                                 </input>
                             </div>
                             <div>
                                 <label class="form-label d-flex fw-bold">Type</label>
-                                <select class="form-select" aria-label="Default select example">
+                                <select class="form-select" aria-label="Default select example" name="type">
                                     <option disabled>Type of Tri Dharma</option>
-                                    <option value="1" class="text-primary fw-semibold">Research</option>
-                                    <option value="2" class="text-success fw-semibold">Dedication</option>
-                                    <option value="3" class="text-warning fw-semibold">Teaching</option>
+                                    <option value="Research" class="text-primary fw-semibold">Research</option>
+                                    <option value="Dedication" class="text-success fw-semibold">Dedication</option>
+                                    <option value="Teaching" class="text-warning fw-semibold">Teaching</option>
                                 </select>
                             </div>
                             <div>
                                 <label class="form-label d-flex fw-bold">Years</label>
-                                <input type="text" class="form-control" name="yearpicker" title="yearpicker" id="yearpicker" />
+                                <input type="text" class="form-control" name="yearpicker" title="yearpicker" id="yearpicker" name="year"/>
                             </div>
                         </div>
                         <div class="d-flex flex-column gap-3">
@@ -167,15 +180,15 @@
                                 <div class="d-flex flex-column gap-2">
                                     <div class="input-group">
                                         <div class="input-group-text">
-                                            <input class="form-check-input mt-0" type="radio" name="contributor1" value="" aria-label="Radio button for following text input">
+                                            <input class="form-check-input mt-0" type="radio"  aria-label="Radio button for following text input">
                                         </div>
-                                        <input type="text" class="form-control" aria-label="Text input with radio button" value="No" disabled>
+                                        <input type="text" class="form-control"  aria-label="Text input with radio button" value="No" disabled>
                                     </div>
                                     <div class="input-group">
                                         <div class="input-group-text">
-                                            <input class="form-check-input mt-0" type="radio" name="contributor1" value="" aria-label="Radio button for following text input">
+                                            <input class="form-check-input mt-0" type="radio"  aria-label="Radio button for following text input">
                                         </div>
-                                        <input type="text" class="form-control" aria-label="Text input with radio button" placeholder="Input name here">
+                                        <input type="text" class="form-control" name="contributor1" aria-label="Text input with radio button" placeholder="Input NIP">
                                     </div>
                                 </div>
                             </div>
@@ -184,15 +197,15 @@
                                 <div class="d-flex flex-column gap-2">
                                     <div class="input-group">
                                         <div class="input-group-text">
-                                            <input class="form-check-input mt-0" type="radio" name="contributor2" value="" aria-label="Radio button for following text input">
+                                            <input class="form-check-input mt-0" type="radio"  aria-label="Radio button for following text input">
                                         </div>
                                         <input type="text" class="form-control" aria-label="Text input with radio button" value="No" disabled>
                                     </div>
                                     <div class="input-group">
                                         <div class="input-group-text">
-                                            <input class="form-check-input mt-0" type="radio" name="contributor2" value="" aria-label="Radio button for following text input">
+                                            <input class="form-check-input mt-0" type="radio"  aria-label="Radio button for following text input">
                                         </div>
-                                        <input type="text" class="form-control" aria-label="Text input with radio button" placeholder="Input name here">
+                                        <input type="text" class="form-control" name="contributor2" aria-label="Text input with radio button" placeholder="Input NIP">
                                     </div>
                                 </div>
                             </div>
@@ -203,15 +216,15 @@
                                 <div class="d-flex flex-column gap-2">
                                     <div class="input-group">
                                         <div class="input-group-text">
-                                            <input class="form-check-input mt-0" type="radio" name="contributor3" value="" aria-label="Radio button for following text input">
+                                            <input class="form-check-input mt-0" type="radio"  value="" aria-label="Radio button for following text input">
                                         </div>
                                         <input type="text" class="form-control" aria-label="Text input with radio button" value="No" disabled>
                                     </div>
                                     <div class="input-group">
                                         <div class="input-group-text">
-                                            <input class="form-check-input mt-0" type="radio" name="contributor3" value="" aria-label="Radio button for following text input">
+                                            <input class="form-check-input mt-0" type="radio"  value="" aria-label="Radio button for following text input">
                                         </div>
-                                        <input type="text" class="form-control" aria-label="Text input with radio button" placeholder="Input name here">
+                                        <input type="text" class="form-control" name="contributor3" aria-label="Text input with radio button" placeholder="Input NIP">
                                     </div>
                                 </div>
                             </div>
@@ -220,22 +233,22 @@
                                 <div class="d-flex flex-column gap-2">
                                     <div class="input-group">
                                         <div class="input-group-text">
-                                            <input class="form-check-input mt-0" type="radio" name="contributor4" value="" aria-label="Radio button for following text input">
+                                            <input class="form-check-input mt-0" type="radio" value="" aria-label="Radio button for following text input">
                                         </div>
-                                        <input type="text" class="form-control" aria-label="Text input with radio button" value="No" disabled>
+                                        <input type="text" class="form-control"  aria-label="Text input with radio button" value="No" disabled>
                                     </div>
                                     <div class="input-group">
                                         <div class="input-group-text">
-                                            <input class="form-check-input mt-0" type="radio" name="contributor4" value="" aria-label="Radio button for following text input">
+                                            <input class="form-check-input mt-0" type="radio"  aria-label="Radio button for following text input">
                                         </div>
-                                        <input type="text" class="form-control" aria-label="Text input with radio button" placeholder="Input name here">
+                                        <input type="text" class="form-control"  name="contributor4" aria-label="Text input with radio button" placeholder="Input NIP">
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="d-flex">
-                        <input type="submit" value="Submit" class="btn btn-success p-2 mb-3">
+                        <input type="submit" value="Submit" name="submit" class="btn btn-success p-2 mb-3">
                     </div>
                 </form>
             </div>
@@ -254,7 +267,7 @@
                     </div>
                     <div class="modal-footer">
                         <a href="#" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</a>
-                        <a href="index.html" type="button" class="btn btn-success">Accept</a>
+                        <a href="../../PHP/logout.php" type="button" class="btn btn-success">Accept</a>
                     </div>
                 </div>
             </div>
@@ -278,5 +291,34 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.2.0/js/bootstrap-datepicker.min.js">
     </script>
 </body>
+
+<!-- PHP CODE -->
+<?php
+    if(isset($_POST['submit'])){
+        $nip = $_SESSION['NIP'];
+        $title = $_POST['title'];
+        $type = $_POST['type'];
+        $year = strtotime($_POST['yearpicker']);
+        $year = date('Y', $year);
+        $contributor1 = $_POST['contributor1'];
+        $contributor2 = $_POST['contributor2'];
+        $contributor3 = $_POST['contributor3'];
+        $contributor4 = $_POST['contributor4'];
+
+        $query = mysqli_query($conf, "INSERT INTO data_tridharma VALUES ('','$title', '$type', '$year', '$nip')");
+        if($contributor1 != ""){
+            $query1 = mysqli_query($conf, "INSERT INTO data_tridharma VALUES ('','$title', '$type', '$year', '$contributor1')");
+        }
+        if($contributor2 != ""){
+            $query2 = mysqli_query($conf, "INSERT INTO data_tridharma VALUES ('','$title', '$type', '$year', '$contributor2')");
+        }
+        if($contributor3 != ""){
+            $query3 = mysqli_query($conf, "INSERT INTO data_tridharma VALUES ('','$title', '$type', '$year', '$contributor3')");
+        }
+        if($contributor4 != ""){
+            $query4 = mysqli_query($conf, "INSERT INTO data_tridharma VALUES ('','$title', '$type', '$year', '$contributor4')");
+        }
+    }
+?>
 
 </html>

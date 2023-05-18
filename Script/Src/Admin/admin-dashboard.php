@@ -25,8 +25,6 @@ $position = $_SESSION["posisi"];
 if ($position != "Admin") {
     if ($position == "Lecturer") {
         header('refresh:0; ../Dosen/user-dashboard.php');
-    } else {
-        header('refresh:0; ../index.php');
     }
 }
 // get data of lecturer

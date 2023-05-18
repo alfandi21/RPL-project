@@ -23,14 +23,9 @@ session_start();
 include '../../PHP/config.php';
 $nip = $_SESSION["NIP"];
 $position = $_SESSION["posisi"];
-if ($position != "Admin") {
-    if ($position == "Lecturer") {
+if ($position == "Lecturer") {
         header('refresh:0; ../Dosen/user-dashboard.php');
-    } else {
-        header('refresh:0; ../index.php');
-    }
 }
-
 // code untuk mendapatkan data admin
 $userQuery = mysqli_query($conf, "SELECT * FROM tb_dosen WHERE nip = '$nip'");
 $userData = mysqli_fetch_assoc($userQuery);
@@ -211,7 +206,13 @@ while ($dosenData = mysqli_fetch_assoc($dosenQuery)) {
                     </thead>
                     <tbody class="col d-flex flex-column">
                         <?php
+                        $no = 0;
+                        $base = "";
                         foreach ($datas as $d) :
+                            $no++;
+                            $take = "flush-collapse" . $no;
+                            if($base != $d['Judul']){
+                                $base = $d['Judul'];
                         ?>
                         <tr class="d-flex p-2">
                             <td class="col-12 col-lg-8 col-xl d-flex align-items-center gap-3 p-2 fs-6">
@@ -224,27 +225,29 @@ while ($dosenData = mysqli_fetch_assoc($dosenQuery)) {
                                     <div class="accordion-item">
                                         <h2 class="accordion-header">
                                             <button class="accordion-button collapsed p-2" type="button"
-                                                data-bs-toggle="collapse" data-bs-target="#flush-collapse1"
-                                                aria-expanded="false" aria-controls="flush-collapse1">
-                                                Placeholder Name1
+                                                data-bs-toggle="collapse" data-bs-target="#<?= $take ?>"
+                                                aria-expanded="false" aria-controls="<?= $take ?>">
+                                                <?= $userData['nama'] ?>
                                             </button>
                                         </h2>
-                                        <div id="flush-collapse1" class="accordion-collapse collapse">
+                                        <?php 
+                                            $judul = $d['Judul'];
+                                            $get = mysqli_query($conf, "SELECT * FROM data_tridharma WHERE Judul = '$judul'");
+                                        
+                                            while($data = mysqli_fetch_assoc($get)){
+                                                $num = $data['nip'];
+                                                $get2 = mysqli_query($conf, "SELECT * FROM tb_dosen WHERE nip = '$num'");
+                                                $data2 = mysqli_fetch_assoc($get2);
+                                            
+                                        ?>
+                                        <div id="<?= $take ?>" class="accordion-collapse collapse">
                                             <div class="accordion-body p-2 d-flex flex-column">
                                                 <span>
-                                                    Placeholder Name2
-                                                </span>
-                                                <span>
-                                                    Placeholder Name3
-                                                </span>
-                                                <span>
-                                                    Placeholder Name4
-                                                </span>
-                                                <span>
-                                                    Placeholder Name5
+                                                        <?= $data2['nama'] ?>
                                                 </span>
                                             </div>
                                         </div>
+                                        <?php } ?>
                                     </div>
                                 </div>
                             </td>
@@ -293,7 +296,11 @@ while ($dosenData = mysqli_fetch_assoc($dosenQuery)) {
                                 </div>
                             </td>
                         </tr>
-                        <?php endforeach; ?>
+                        <?php }else{
+                            $base = $d['Judul'];
+                            continue;
+                        }
+                            endforeach; ?>
                     </tbody>
                 </table>
             </div>
