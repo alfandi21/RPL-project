@@ -71,3 +71,4 @@ if (isset($_POST['submit'])) {
         echo "<meta http-equiv='refresh' content='1 url=../Src/Dosen/user-dashboard.php'>";
     }
 }
+?>
