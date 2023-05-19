@@ -22,10 +22,14 @@ include '../../PHP/config.php';
 session_start();
 $NIP = $_SESSION["NIP"];
 $position = $_SESSION["posisi"];
-if ($position != "Admin") {
-    if ($position == "Lecturer") {
-        header('refresh:0; ../Dosen/user-dashboard.php');
-    }
+if(isset($position) && $position == "Lecturer"){
+    header('refresh:0; ../Dosen/user-dashboard.php');
+    exit;
+}else if(!isset($position)){
+    
+        header('refresh:0; ../index.php');
+        exit;
+    
 }
 // get data of lecturer
 $get_data = mysqli_query($conf, "SELECT * FROM tb_dosen WHERE NIP = '$NIP'");

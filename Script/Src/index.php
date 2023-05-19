@@ -16,6 +16,18 @@
     <!-- Google Material Icons -->
     <link href="https://fonts.googleapis.com/css?family=Material+Icons+Round" rel="stylesheet">
 </head>
+<!-- //PHP Header -->
+<?php 
+    include '../PHP/config.php';
+    session_start();
+    if (isset($_SESSION['posisi']) && $_SESSION['posisi'] == "Admin") {
+        header('refresh:0; Admin/admin-dashboard.php');
+        exit;
+    } else if (isset($_SESSION['posisi']) && $_SESSION['posisi'] == "Lecturer") {
+        header('refresh:0; Dosen/user-dashboard.php');
+        exit;
+    }
+?>
 
 <body class="d-flex justify-content-center">
     <div class="main col d-flex justify-content-center align-items-center">

@@ -23,8 +23,14 @@ session_start();
 include '../../PHP/config.php';
 $nip = $_SESSION["NIP"];
 $position = $_SESSION["posisi"];
-if ($position == "Lecturer") {
-        header('refresh:0; ../Dosen/user-dashboard.php');
+if(isset($position) && $position == "Lecturer"){
+    header('refresh:0; ../Dosen/user-dashboard.php');
+    exit;
+}else if(!isset($position)){
+    
+        header('refresh:0; ../index.php');
+        exit;
+    
 }
 // code untuk mendapatkan data admin
 $userQuery = mysqli_query($conf, "SELECT * FROM tb_dosen WHERE nip = '$nip'");

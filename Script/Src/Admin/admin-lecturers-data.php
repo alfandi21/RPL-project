@@ -23,12 +23,14 @@ session_start();
 include '../../PHP/config.php';
 $NIP = $_SESSION["NIP"];
 $position = $_SESSION["posisi"];
-if ($position != "Admin") {
-    if ($position == "Lecturer") {
-        header('refresh:0; ../Dosen/user-dashboard.php');
-    } else {
+if(isset($position) && $position == "Lecturer"){
+    header('refresh:0; ../Dosen/user-dashboard.php');
+    exit;
+}else if(!isset($position)){
+    
         header('refresh:0; ../index.php');
-    }
+        exit;
+    
 }
 
 // code untuk mendapatkan data admin
